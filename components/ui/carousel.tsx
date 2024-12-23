@@ -42,19 +42,19 @@ export function Carousel({ images }: CarouselProps) {
       <Button
         variant="outline"
         size="icon"
-        className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-12 h-12 rounded-full shadow-lg"
+        className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-32 h-32 rounded-full shadow-lg border-2 border-white"
         onClick={scrollPrev}
       >
-        <ChevronLeft className="h-8 w-8" />
+        <ChevronLeft className="h-24 w-24 text-gray-700" />
       </Button>
       
       <Button
         variant="outline"
         size="icon"
-        className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-12 h-12 rounded-full shadow-lg"
+        className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-32 h-32 rounded-full shadow-lg border-2 border-white"
         onClick={scrollNext}
       >
-        <ChevronRight className="h-8 w-8" />
+        <ChevronRight className="h-24 w-24 text-gray-700" />
       </Button>
     </div>
   );
