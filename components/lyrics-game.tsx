@@ -361,6 +361,13 @@ export function LyricsGame() {
               >
                 Reset
               </Button>
+              <Button 
+                onClick={() => setIsGameComplete(true)}
+                variant="outline"
+                size="sm"
+              >
+                Create Victory
+              </Button>
             </div>
             <p className="text-lg">Line {currentLineIndex + 1} of {lyrics.length}</p>
           </div>
