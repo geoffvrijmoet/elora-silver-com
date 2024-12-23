@@ -6,14 +6,42 @@ import { lyrics } from '@/lib/lyrics-data';
 import { cn } from '@/lib/utils';
 
 export function LyricsGame() {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [currentLineIndex, setCurrentLineIndex] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return Number(localStorage.getItem('currentLineIndex')) || 0;
+    }
+    return 0;
+  });
   const [userInput, setUserInput] = useState('');
-  const [score, setScore] = useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return Number(localStorage.getItem('score')) || 0;
+    }
+    return 0;
+  });
+  const [gameStarted, setGameStarted] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('gameStarted') === 'true';
+    }
+    return false;
+  });
   const [feedback, setFeedback] = useState('');
   const [lastCorrectLine, setLastCorrectLine] = useState('');
   const [partialMatch, setPartialMatch] = useState('');
-  const [matchedLines, setMatchedLines] = useState<string[]>([]);
+  const [matchedLines, setMatchedLines] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('matchedLines');
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('currentLineIndex', currentLineIndex.toString());
+    localStorage.setItem('score', score.toString());
+    localStorage.setItem('gameStarted', gameStarted.toString());
+    localStorage.setItem('matchedLines', JSON.stringify(matchedLines));
+  }, [currentLineIndex, score, gameStarted, matchedLines]);
 
   const stripPunctuation = (text: string) => {
     const normalized = text.toLowerCase().trim();
@@ -103,14 +131,22 @@ export function LyricsGame() {
   };
 
   const getRandomPraise = () => {
-    const praises = [
+    // Early game praises
+    const earlyPraises = [
       "Nice! 🎵",
       "Great job! 🎤",
-      "Nailed it! 🎶",
-      "Perfect! 🎸",
-      "You got it! 🎼",
-      "Awesome! 🎶"
+      "Perfect! 🎸"
     ];
+
+    // Later game praises (after getting several correct)
+    const laterPraises = [
+      "You're on a roll! 🎵",
+      "Whoa! 🎸",
+      "You really know this song! 🎤"
+    ];
+
+    // Use later praises after 5 correct lines
+    const praises = score > 5 ? laterPraises : earlyPraises;
     return praises[Math.floor(Math.random() * praises.length)];
   };
 
@@ -141,6 +177,7 @@ export function LyricsGame() {
     setLastCorrectLine('');
     setPartialMatch('');
     setMatchedLines([]);
+    localStorage.clear();
   };
 
   const isChunkBreakNeeded = (currentLine: string, nextLine: string) => {
@@ -224,22 +261,22 @@ export function LyricsGame() {
                 {partialMatch}
               </p>
             )}
-            <div className="w-full flex gap-2 items-center mt-4">
+            <div className="w-full flex flex-col gap-2">
               <input
                 type="text"
                 value={userInput}
                 onChange={handleInputChange}
-                className="flex-1 p-3 border rounded-lg text-lg"
+                className="w-full p-3 border rounded-lg text-lg"
                 placeholder="Type the next line..."
                 autoFocus
               />
               <Button 
                 onClick={getNextCharacterHint}
                 variant="outline"
-                size="icon"
-                title="Get hint"
+                size="sm"
+                className="self-center"
               >
-                💡
+                Hint
               </Button>
             </div>
           </div>
