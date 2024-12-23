@@ -7,7 +7,11 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function GamePage() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isLoading, logout } = useAuth();
+
+  if (isLoading) {
+    return null; // or a loading spinner
+  }
 
   if (!isAuthenticated) {
     return (

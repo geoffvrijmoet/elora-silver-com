@@ -11,6 +11,7 @@ export function LyricsGame() {
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [lastCorrectLine, setLastCorrectLine] = useState('');
 
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
@@ -20,16 +21,16 @@ export function LyricsGame() {
     if (normalizedInput === normalizedCorrect) {
       setScore(score + 1);
       setFeedback('Correct! 🎵');
+      setLastCorrectLine(currentLine.text);
+      setUserInput('');
+      if (currentLineIndex < lyrics.length - 1) {
+        setCurrentLineIndex(currentLineIndex + 1);
+      } else {
+        setGameStarted(false);
+        setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
+      }
     } else {
-      setFeedback(`Almost! The correct line was: "${currentLine.text}"`);
-    }
-
-    setUserInput('');
-    if (currentLineIndex < lyrics.length - 1) {
-      setCurrentLineIndex(currentLineIndex + 1);
-    } else {
-      setGameStarted(false);
-      setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
+      setFeedback('Try again! 🎤');
     }
   };
 
@@ -39,6 +40,7 @@ export function LyricsGame() {
     setScore(0);
     setUserInput('');
     setFeedback('');
+    setLastCorrectLine('');
   };
 
   return (
@@ -73,6 +75,11 @@ export function LyricsGame() {
           </div>
 
           <div className="flex flex-col items-center space-y-4">
+            {lastCorrectLine && (
+              <p className="text-lg text-gray-600 italic">
+                "{lastCorrectLine}"
+              </p>
+            )}
             <input
               type="text"
               value={userInput}
