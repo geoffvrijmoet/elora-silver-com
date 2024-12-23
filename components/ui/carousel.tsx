@@ -6,15 +6,11 @@ import Image from 'next/image';
 import { Button } from './button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const images = [
-  'https://i.imgur.com/BYoZZqM.jpeg',
-  'https://i.imgur.com/D2XIgBp.jpeg',
-  'https://i.imgur.com/jQP8kpA.jpeg',
-  'https://i.imgur.com/IyqUtXM.jpeg',
-  'https://i.imgur.com/apvfCVa.jpeg',
-];
+interface CarouselProps {
+  images: string[];
+}
 
-export function Carousel() {
+export function Carousel({ images }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const scrollPrev = useCallback(() => {
@@ -26,16 +22,17 @@ export function Carousel() {
   }, [emblaApi]);
 
   return (
-    <div className="relative max-w-5xl mx-auto">
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
+    <div className="relative h-full">
+      <div className="overflow-hidden h-full" ref={emblaRef}>
+        <div className="flex h-full">
           {images.map((src, i) => (
-            <div key={i} className="flex-[0_0_100%] min-w-0 relative h-[500px]">
+            <div key={i} className="flex-[0_0_100%] min-w-0 relative h-full">
               <Image
                 src={src}
-                alt={`Carousel image ${i + 1}`}
+                alt={`Hero image ${i + 1}`}
                 fill
                 className="object-contain"
+                priority={i === 0}
               />
             </div>
           ))}
@@ -45,7 +42,7 @@ export function Carousel() {
       <Button
         variant="outline"
         size="icon"
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 z-20"
         onClick={scrollPrev}
       >
         <ChevronLeft className="h-4 w-4" />
@@ -54,7 +51,7 @@ export function Carousel() {
       <Button
         variant="outline"
         size="icon"
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 z-20"
         onClick={scrollNext}
       >
         <ChevronRight className="h-4 w-4" />
