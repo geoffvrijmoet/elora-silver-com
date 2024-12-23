@@ -15,7 +15,8 @@ export function LyricsGame() {
   const [partialMatch, setPartialMatch] = useState('');
 
   const stripPunctuation = (text: string) => {
-    return text.replace(/[.,!?;'"()]/g, '').toLowerCase().trim();
+    const normalized = text.toLowerCase().trim();
+    return normalized.replace(/[.,!?;'"()]/g, '');
   };
 
   const parseAlternatives = (text: string) => {
@@ -43,36 +44,53 @@ export function LyricsGame() {
     const { alternatives } = parseAlternatives(target);
     const normalizedInput = stripPunctuation(input);
     
-    return alternatives.some(alt => 
-      input === alt || // exact match with punctuation
-      normalizedInput === stripPunctuation(alt) // match without punctuation
-    );
+    return alternatives.some(alt => {
+      const normalizedAlt = stripPunctuation(alt);
+      // Ensure we're matching complete words by comparing word counts
+      const inputWords = normalizedInput.split(' ');
+      const targetWords = normalizedAlt.split(' ');
+      
+      // Only match if we have the same number of words
+      if (inputWords.length !== targetWords.length) {
+        return false;
+      }
+      // Compare each word
+      return normalizedInput === normalizedAlt;
+    });
   };
 
   const checkPartialMatch = (input: string) => {
     const currentLine = lyrics[currentLineIndex].text;
     const words = currentLine.split(' ');
     const inputWords = input.split(' ');
+    const lastInputWord = inputWords[inputWords.length - 1];
     
     let matchedWords = [];
+    let isFullMatch = false;
+
     for (let i = 0; i < inputWords.length && i < words.length; i++) {
       const targetWord = words[i];
       const inputWord = inputWords[i];
       
       if (isMatch(inputWord, targetWord)) {
         matchedWords.push(targetWord);
-      } else if (targetWord.toLowerCase().startsWith(inputWord.toLowerCase()) || 
-                 stripPunctuation(targetWord).startsWith(stripPunctuation(inputWord))) {
-        matchedWords.push(targetWord.slice(0, inputWord.length));
+        // Check if we've matched all words
+        if (i === words.length - 1) {
+          isFullMatch = true;
+        }
+      } else if (targetWord.toLowerCase().startsWith(lastInputWord.toLowerCase()) || 
+                stripPunctuation(targetWord).startsWith(stripPunctuation(lastInputWord))) {
+        matchedWords.push(targetWord.slice(0, lastInputWord.length));
+        break;
       } else {
         break;
       }
     }
     
     setPartialMatch(matchedWords.join(' '));
-
-    // Check for full line match
-    if (isMatch(input, currentLine)) {
+    
+    if (isFullMatch) {
+        console.log('full match')
       checkLine();
     }
   };
@@ -90,7 +108,7 @@ export function LyricsGame() {
       "Nailed it! 🎶",
       "Perfect! 🎸",
       "You got it! 🎼",
-      "Awesome! ���"
+      "Awesome! 🎶"
     ];
     return praises[Math.floor(Math.random() * praises.length)];
   };
@@ -98,7 +116,7 @@ export function LyricsGame() {
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
     
-    if (isMatch(userInput, currentLine.text)) {
+    // if (isMatch(userInput, currentLine.text)) {
       setScore(score + 1);
       setFeedback(getRandomPraise());
       setLastCorrectLine(currentLine.text);
@@ -110,9 +128,9 @@ export function LyricsGame() {
         setGameStarted(false);
         setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
       }
-    } else {
-      setFeedback('Try again! 🎤');
-    }
+    // } else {
+    //   setFeedback('Try again! 🎤');
+    // }
   };
 
   const startGame = () => {

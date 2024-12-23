@@ -64,7 +64,7 @@ export const lyrics: LyricLine[] = [
   { id: 56, text: "Attention all y'all players and pimps", bridge: true },
   { id: 57, text: "Right now in the place to be (shake ya ass)", bridge: true },
   { id: 58, text: "I thought I told y'all ____ before", bridge: true },
-  { id: 59, text: "Y'all niggas can't fuck with me (watch yourself)", bridge: true },
+  { id: 59, text: "Y'all ___ can't fuck with me (watch yourself)", bridge: true },
   { id: 60, text: "Now this ain't for no small booties", bridge: true },
   { id: 61, text: "No sir cause that won't pass (show me whatcha workin with)", bridge: true },
   { id: 62, text: "But if you feel you got the biggest one", bridge: true },
