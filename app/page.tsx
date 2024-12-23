@@ -23,15 +23,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-100 py-8">
-        <div className="max-w-4xl mx-auto px-4 text-center text-gray-600">
-          <p>
-            &quot;Shake Ya Ass&quot; © 2000 Mystikal. All rights reserved.
-            This is a fan-made learning tool.
-          </p>
-        </div>
-      </footer>
+
     </main>
   );
 }
