@@ -13,6 +13,7 @@ export function LyricsGame() {
   const [feedback, setFeedback] = useState('');
   const [lastCorrectLine, setLastCorrectLine] = useState('');
   const [partialMatch, setPartialMatch] = useState('');
+  const [matchedLines, setMatchedLines] = useState<string[]>([]);
 
   const stripPunctuation = (text: string) => {
     const normalized = text.toLowerCase().trim();
@@ -116,21 +117,19 @@ export function LyricsGame() {
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
     
-    // if (isMatch(userInput, currentLine.text)) {
-      setScore(score + 1);
-      setFeedback(getRandomPraise());
-      setLastCorrectLine(currentLine.text);
-      setUserInput('');
-      setPartialMatch('');
-      if (currentLineIndex < lyrics.length - 1) {
-        setCurrentLineIndex(currentLineIndex + 1);
-      } else {
-        setGameStarted(false);
-        setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
-      }
-    // } else {
-    //   setFeedback('Try again! 🎤');
-    // }
+    setScore(score + 1);
+    setFeedback(getRandomPraise());
+    setLastCorrectLine(currentLine.text);
+    setMatchedLines(prev => [...prev, currentLine.text]);
+    setUserInput('');
+    setPartialMatch('');
+    
+    if (currentLineIndex < lyrics.length - 1) {
+      setCurrentLineIndex(currentLineIndex + 1);
+    } else {
+      setGameStarted(false);
+      setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
+    }
   };
 
   const startGame = () => {
@@ -141,6 +140,7 @@ export function LyricsGame() {
     setFeedback('');
     setLastCorrectLine('');
     setPartialMatch('');
+    setMatchedLines([]);
   };
 
   return (
@@ -175,11 +175,11 @@ export function LyricsGame() {
           </div>
 
           <div className="flex flex-col items-center space-y-4">
-            {lastCorrectLine && (
-              <p className="text-lg text-gray-600 italic">
-                "{lastCorrectLine}"
+            {matchedLines.map((line, index) => (
+              <p key={index} className="text-lg text-gray-600 italic">
+                "{line}"
               </p>
-            )}
+            ))}
             {partialMatch && (
               <p className="text-lg text-green-600">
                 {partialMatch}
