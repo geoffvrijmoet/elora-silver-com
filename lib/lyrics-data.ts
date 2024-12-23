@@ -7,7 +7,7 @@ export interface LyricLine {
 
 export const lyrics: LyricLine[] = [
   { id: 1, text: "Shake ya ass, watch yourself", chorus: true },
-  { id: 2, text: "Shake ya ass, show me what you[you're] workin' with", chorus: true },
+  { id: 2, text: "Shake ya ass, show me what you workin' with", chorus: true },
   { id: 3, text: "Shake ya ass, watch yourself", chorus: true },
   { id: 4, text: "Shake ya ass", chorus: true },
   { id: 5, text: "I came here with my dick in my hand", chorus: false },

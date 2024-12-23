@@ -18,6 +18,37 @@ export function LyricsGame() {
     return text.replace(/[.,!?;'"()]/g, '').toLowerCase().trim();
   };
 
+  const parseAlternatives = (text: string) => {
+    // Convert "[you're]" into array ["you", "you're"]
+    const alternatives: string[] = [];
+    const regex = /\[(.*?)\]/g;
+    let cleanText = text;
+    
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      const bracketContent = match[1];
+      const beforeBracket = text.slice(0, match.index).trim();
+      alternatives.push(beforeBracket + bracketContent);
+      cleanText = cleanText.replace(`[${bracketContent}]`, '');
+    }
+    
+    if (alternatives.length === 0) {
+      return { text: cleanText, alternatives: [cleanText] };
+    }
+    
+    return { text: cleanText, alternatives };
+  };
+
+  const isMatch = (input: string, target: string) => {
+    const { alternatives } = parseAlternatives(target);
+    const normalizedInput = stripPunctuation(input);
+    
+    return alternatives.some(alt => 
+      input === alt || // exact match with punctuation
+      normalizedInput === stripPunctuation(alt) // match without punctuation
+    );
+  };
+
   const checkPartialMatch = (input: string) => {
     const currentLine = lyrics[currentLineIndex].text;
     const words = currentLine.split(' ');
@@ -28,13 +59,11 @@ export function LyricsGame() {
       const targetWord = words[i];
       const inputWord = inputWords[i];
       
-      // Check if input word is a prefix of target word (including punctuation)
-      if (targetWord.toLowerCase().startsWith(inputWord.toLowerCase()) || 
-          stripPunctuation(targetWord).startsWith(stripPunctuation(inputWord))) {
-        matchedWords.push(targetWord.slice(0, inputWord.length));
-      } else if (inputWord === targetWord || 
-                 stripPunctuation(inputWord) === stripPunctuation(targetWord)) {
+      if (isMatch(inputWord, targetWord)) {
         matchedWords.push(targetWord);
+      } else if (targetWord.toLowerCase().startsWith(inputWord.toLowerCase()) || 
+                 stripPunctuation(targetWord).startsWith(stripPunctuation(inputWord))) {
+        matchedWords.push(targetWord.slice(0, inputWord.length));
       } else {
         break;
       }
@@ -43,8 +72,7 @@ export function LyricsGame() {
     setPartialMatch(matchedWords.join(' '));
 
     // Check for full line match
-    if (input === currentLine || 
-        stripPunctuation(input) === stripPunctuation(currentLine)) {
+    if (isMatch(input, currentLine)) {
       checkLine();
     }
   };
@@ -62,7 +90,7 @@ export function LyricsGame() {
       "Nailed it! 🎶",
       "Perfect! 🎸",
       "You got it! 🎼",
-      "Awesome! 🎹"
+      "Awesome! ���"
     ];
     return praises[Math.floor(Math.random() * praises.length)];
   };
@@ -70,9 +98,7 @@ export function LyricsGame() {
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
     
-    // Check exact match first, then stripped match
-    if (userInput === currentLine.text || 
-        stripPunctuation(userInput) === stripPunctuation(currentLine.text)) {
+    if (isMatch(userInput, currentLine.text)) {
       setScore(score + 1);
       setFeedback(getRandomPraise());
       setLastCorrectLine(currentLine.text);
