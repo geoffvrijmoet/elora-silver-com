@@ -26,7 +26,6 @@ export function LyricsGame() {
     return false;
   });
   const [feedback, setFeedback] = useState('');
-  const [lastCorrectLine, setLastCorrectLine] = useState('');
   const [partialMatch, setPartialMatch] = useState('');
   const [matchedLines, setMatchedLines] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
@@ -94,7 +93,7 @@ export function LyricsGame() {
     const inputWords = input.split(' ');
     const lastInputWord = inputWords[inputWords.length - 1];
     
-    let matchedWords = [];
+    const matchedWords = [];
     let isFullMatch = false;
 
     for (let i = 0; i < inputWords.length && i < words.length; i++) {
@@ -155,7 +154,6 @@ export function LyricsGame() {
     
     setScore(score + 1);
     setFeedback(getRandomPraise());
-    setLastCorrectLine(currentLine.text);
     setMatchedLines(prev => [...prev, currentLine.text]);
     setUserInput('');
     setPartialMatch('');
@@ -174,8 +172,6 @@ export function LyricsGame() {
     setScore(0);
     setUserInput('');
     setFeedback('');
-    setLastCorrectLine('');
-    setPartialMatch('');
     setMatchedLines([]);
     localStorage.clear();
   };
@@ -213,6 +209,19 @@ export function LyricsGame() {
     setUserInput(userInput + nextChar);
   };
 
+  const getNextWordHint = () => {
+    const currentLine = lyrics[currentLineIndex].text;
+    const words = currentLine.split(' ');
+    const inputWords = userInput.split(' ');
+    
+    // Find the next incomplete word
+    const nextWordIndex = inputWords.length;
+    if (nextWordIndex < words.length) {
+      const nextWord = words[nextWordIndex];
+      setUserInput((userInput + ' ' + nextWord).trim());
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
@@ -248,7 +257,7 @@ export function LyricsGame() {
             {matchedLines.map((line, index) => (
               <div key={index}>
                 <p className="text-lg text-gray-600 italic leading-tight">
-                  "{line}"
+                  &quot;{line}&quot;
                 </p>
                 {index < matchedLines.length - 1 && 
                  isChunkBreakNeeded(line, matchedLines[index + 1]) && (
@@ -270,14 +279,22 @@ export function LyricsGame() {
                 placeholder="Type the next line..."
                 autoFocus
               />
-              <Button 
-                onClick={getNextCharacterHint}
-                variant="outline"
-                size="sm"
-                className="self-center"
-              >
-                Hint
-              </Button>
+              <div className="flex gap-2 self-center">
+                <Button 
+                  onClick={getNextCharacterHint}
+                  variant="outline"
+                  size="sm"
+                >
+                  Hint
+                </Button>
+                <Button 
+                  onClick={getNextWordHint}
+                  variant="outline"
+                  size="sm"
+                >
+                  Big Hint
+                </Button>
+              </div>
             </div>
           </div>
 
