@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { lyrics } from '@/lib/lyrics-data';
 import { cn } from '@/lib/utils';
@@ -12,6 +12,30 @@ export function LyricsGame() {
   const [gameStarted, setGameStarted] = useState(false);
   const [feedback, setFeedback] = useState('');
   const [lastCorrectLine, setLastCorrectLine] = useState('');
+  const [partialMatch, setPartialMatch] = useState('');
+
+  const checkPartialMatch = (input: string) => {
+    const currentLine = lyrics[currentLineIndex].text.toLowerCase();
+    const words = currentLine.split(' ');
+    const inputWords = input.toLowerCase().trim().split(' ');
+    
+    let matchedWords = [];
+    for (let i = 0; i < inputWords.length; i++) {
+      if (inputWords[i] === words[i]) {
+        matchedWords.push(words[i]);
+      } else {
+        break;
+      }
+    }
+    
+    setPartialMatch(matchedWords.join(' '));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newInput = e.target.value;
+    setUserInput(newInput);
+    checkPartialMatch(newInput);
+  };
 
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
@@ -23,6 +47,7 @@ export function LyricsGame() {
       setFeedback('Correct! 🎵');
       setLastCorrectLine(currentLine.text);
       setUserInput('');
+      setPartialMatch('');
       if (currentLineIndex < lyrics.length - 1) {
         setCurrentLineIndex(currentLineIndex + 1);
       } else {
@@ -41,6 +66,7 @@ export function LyricsGame() {
     setUserInput('');
     setFeedback('');
     setLastCorrectLine('');
+    setPartialMatch('');
   };
 
   return (
@@ -80,10 +106,15 @@ export function LyricsGame() {
                 "{lastCorrectLine}"
               </p>
             )}
+            {partialMatch && (
+              <p className="text-lg text-green-600">
+                {partialMatch}
+              </p>
+            )}
             <input
               type="text"
               value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
+              onChange={handleInputChange}
               onKeyPress={(e) => e.key === 'Enter' && checkLine()}
               className="w-full p-3 border rounded-lg text-lg"
               placeholder="Type the next line..."
