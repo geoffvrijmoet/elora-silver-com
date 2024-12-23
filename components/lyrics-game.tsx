@@ -6,6 +6,7 @@ import { lyrics } from '@/lib/lyrics-data';
 import { cn } from '@/lib/utils';
 import YouTube from 'react-youtube';
 import { Music, Play, Pause } from 'lucide-react';
+import type { YouTubePlayer } from 'react-youtube';
 
 export function LyricsGame() {
   const [currentLineIndex, setCurrentLineIndex] = useState(() => {
@@ -38,7 +39,7 @@ export function LyricsGame() {
   });
   const [isGameComplete, setIsGameComplete] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [player, setPlayer] = useState<any>(null);
+  const [player, setPlayer] = useState<YouTubePlayer | null>(null);
 
   useEffect(() => {
     localStorage.setItem('currentLineIndex', currentLineIndex.toString());
@@ -251,7 +252,7 @@ export function LyricsGame() {
 
   const VICTORY_GIF = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDNwNGoyM2Y0cDJidmhrcjltODg5Z2RtNHAxOXVrOGVxcHdrb3RrOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/djDeJ5hlJ3Q25QVWIc/giphy.gif";
 
-  const onReady = (event: any) => {
+  const onReady = (event: { target: YouTubePlayer }) => {
     setPlayer(event.target);
   };
 
