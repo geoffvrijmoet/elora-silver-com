@@ -34,6 +34,7 @@ export function LyricsGame() {
     }
     return [];
   });
+  const [isGameComplete, setIsGameComplete] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('currentLineIndex', currentLineIndex.toString());
@@ -162,6 +163,7 @@ export function LyricsGame() {
       setCurrentLineIndex(currentLineIndex + 1);
     } else {
       setGameStarted(false);
+      setIsGameComplete(true);
       setFeedback(`Game Over! Final Score: ${score + 1}/${lyrics.length}`);
     }
   };
@@ -233,6 +235,8 @@ export function LyricsGame() {
     localStorage.clear();
   };
 
+  const VICTORY_GIF = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDNwNGoyM2Y0cDJidmhrcjltODg5Z2RtNHAxOXVrOGVxcHdrb3RrOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/djDeJ5hlJ3Q25QVWIc/giphy.gif";
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
@@ -268,6 +272,13 @@ export function LyricsGame() {
                 size="sm"
               >
                 Reset
+              </Button>
+              <Button 
+                onClick={() => setIsGameComplete(true)}
+                variant="outline"
+                size="sm"
+              >
+                Create Victory
               </Button>
             </div>
             <p className="text-lg">Line {currentLineIndex + 1} of {lyrics.length}</p>
@@ -337,6 +348,24 @@ export function LyricsGame() {
           <li>Try to get all the lines correct!</li>
         </ul>
       </div>
+
+      {isGameComplete && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-4 rounded-lg">
+            <img 
+              src={VICTORY_GIF} 
+              alt="Victory celebration"
+              className="max-w-md rounded-lg"
+            />
+            <Button 
+              onClick={() => setIsGameComplete(false)} 
+              className="mt-4 w-full"
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
