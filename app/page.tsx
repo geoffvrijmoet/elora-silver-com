@@ -1,33 +1,9 @@
-'use client';
-
-import { useAuth } from '@/lib/auth-context';
-import { LoginForm } from '@/components/login-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Home() {
-  const { isAuthenticated, isLoading, logout } = useAuth();
-
-  if (isLoading) {
-    return null; // or a loading spinner
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <main className="min-h-screen flex items-center justify-center p-4">
-        <LoginForm />
-      </main>
-    );
-  }
-
   return (
     <main className="min-h-screen p-4">
-      <nav className="flex justify-end mb-8">
-        <Button onClick={logout} variant="outline">
-          Logout
-        </Button>
-      </nav>
-      
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Welcome to Elora Silver&apos;s Website</h1>
         

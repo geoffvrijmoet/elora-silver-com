@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function GamePage() {
-  const { isAuthenticated, isLoading, logout } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
 
   if (isLoading) {
     return null; // or a loading spinner
@@ -15,8 +15,12 @@ export default function GamePage() {
 
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen flex items-center justify-center p-4">
+      <main className="min-h-screen flex flex-col items-center justify-center p-4">
+        <h2 className="text-2xl font-bold mb-6">Enter Password to Play</h2>
         <LoginForm />
+        <Link href="/" className="mt-4">
+          <Button variant="ghost">← Back to Home</Button>
+        </Link>
       </main>
     );
   }
@@ -27,9 +31,6 @@ export default function GamePage() {
         <Link href="/">
           <Button variant="ghost">← Back to Home</Button>
         </Link>
-        <Button onClick={logout} variant="outline">
-          Logout
-        </Button>
       </nav>
       
       <LyricsGame />
