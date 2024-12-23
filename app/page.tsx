@@ -3,6 +3,7 @@
 import { useAuth } from '@/lib/auth-context';
 import { LoginForm } from '@/components/login-form';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Home() {
   const { isAuthenticated, logout } = useAuth();
@@ -37,8 +38,13 @@ export default function Home() {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Learn &quot;Shake Ya Ass&quot;</h2>
           <p className="text-lg mb-4">
-            Coming soon: An interactive game to learn the lyrics!
+            Ready to learn the lyrics to this classic song?
           </p>
+          <Link href="/game">
+            <Button size="lg">
+              Play the Game →
+            </Button>
+          </Link>
         </section>
       </div>
     </main>
