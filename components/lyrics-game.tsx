@@ -14,15 +14,21 @@ export function LyricsGame() {
   const [lastCorrectLine, setLastCorrectLine] = useState('');
   const [partialMatch, setPartialMatch] = useState('');
 
+  const stripPunctuation = (text: string) => {
+    return text.replace(/[.,!?;'"()]/g, '').toLowerCase().trim();
+  };
+
   const checkPartialMatch = (input: string) => {
-    const currentLine = lyrics[currentLineIndex].text.toLowerCase();
-    const words = currentLine.split(' ');
-    const inputWords = input.toLowerCase().trim().split(' ');
+    const currentLine = lyrics[currentLineIndex].text;
+    const currentLineNormalized = stripPunctuation(currentLine);
+    const words = currentLineNormalized.split(' ');
+    const originalWords = currentLine.split(' ');
+    const inputWords = stripPunctuation(input).split(' ');
     
     let matchedWords = [];
     for (let i = 0; i < inputWords.length; i++) {
       if (inputWords[i] === words[i]) {
-        matchedWords.push(words[i]);
+        matchedWords.push(originalWords[i]);
       } else {
         break;
       }
@@ -39,8 +45,8 @@ export function LyricsGame() {
 
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
-    const normalizedInput = userInput.toLowerCase().trim();
-    const normalizedCorrect = currentLine.text.toLowerCase();
+    const normalizedInput = stripPunctuation(userInput);
+    const normalizedCorrect = stripPunctuation(currentLine.text);
 
     if (normalizedInput === normalizedCorrect) {
       setScore(score + 1);
