@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { lyrics } from '@/lib/lyrics-data';
 import { cn } from '@/lib/utils';
+import YouTube from 'react-youtube';
 
 export function LyricsGame() {
   const [currentLineIndex, setCurrentLineIndex] = useState(() => {
@@ -42,6 +43,16 @@ export function LyricsGame() {
     localStorage.setItem('gameStarted', gameStarted.toString());
     localStorage.setItem('matchedLines', JSON.stringify(matchedLines));
   }, [currentLineIndex, score, gameStarted, matchedLines]);
+
+  useEffect(() => {
+    // Cleanup when victory screen is closed
+    return () => {
+      if (!isGameComplete) {
+        // The YouTube iframe will be removed automatically
+        // when the component unmounts
+      }
+    };
+  }, [isGameComplete]);
 
   const stripPunctuation = (text: string) => {
     const normalized = text.toLowerCase().trim();
@@ -351,12 +362,27 @@ export function LyricsGame() {
 
       {isGameComplete && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 rounded-lg">
-            <img 
-              src={VICTORY_GIF} 
-              alt="Victory celebration"
-              className="max-w-md rounded-lg"
-            />
+          <div className="bg-white p-4 rounded-lg max-w-xl w-full">
+            <div className="flex justify-center">
+              <img 
+                src={VICTORY_GIF} 
+                alt="Victory celebration"
+                className="w-64 h-auto rounded-lg mb-4"
+              />
+            </div>
+            <div className="h-0 overflow-hidden">
+              <YouTube
+                videoId="4e7JA7cgYY0"
+                opts={{
+                  playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    height: '1',
+                    width: '1',
+                  },
+                }}
+              />
+            </div>
             <Button 
               onClick={() => setIsGameComplete(false)} 
               className="mt-4 w-full"
