@@ -43,6 +43,18 @@ export function LyricsGame() {
     checkPartialMatch(newInput);
   };
 
+  const getRandomPraise = () => {
+    const praises = [
+      "Nice! 🎵",
+      "Great job! 🎤",
+      "Nailed it! 🎶",
+      "Perfect! 🎸",
+      "You got it! 🎼",
+      "Awesome! 🎹"
+    ];
+    return praises[Math.floor(Math.random() * praises.length)];
+  };
+
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
     const normalizedInput = stripPunctuation(userInput);
@@ -50,7 +62,7 @@ export function LyricsGame() {
 
     if (normalizedInput === normalizedCorrect) {
       setScore(score + 1);
-      setFeedback('Correct! 🎵');
+      setFeedback(getRandomPraise());
       setLastCorrectLine(currentLine.text);
       setUserInput('');
       setPartialMatch('');
