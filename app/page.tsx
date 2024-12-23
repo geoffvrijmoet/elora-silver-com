@@ -18,13 +18,14 @@ export default function Home() {
       {/* Hero Carousel Section */}
       <div className="relative w-full" style={{ height: '90vh' }}>
         <Carousel images={heroImages} />
-        <div className="absolute inset-0 flex items-end justify-center pb-12 z-10">
-          <Link href="/game">
-            <Button size="lg" className="text-lg px-8">
-              Play the secret game →
-            </Button>
-          </Link>
-        </div>
+      </div>
+      
+      <div className="flex justify-center py-8">
+        <Link href="/game">
+          <Button size="lg" className="text-lg px-8">
+            Play the secret game →
+          </Button>
+        </Link>
       </div>
     </main>
   );
