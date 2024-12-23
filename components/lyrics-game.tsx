@@ -20,21 +20,33 @@ export function LyricsGame() {
 
   const checkPartialMatch = (input: string) => {
     const currentLine = lyrics[currentLineIndex].text;
-    const currentLineNormalized = stripPunctuation(currentLine);
-    const words = currentLineNormalized.split(' ');
-    const originalWords = currentLine.split(' ');
-    const inputWords = stripPunctuation(input).split(' ');
+    const words = currentLine.split(' ');
+    const inputWords = input.split(' ');
     
     let matchedWords = [];
-    for (let i = 0; i < inputWords.length; i++) {
-      if (inputWords[i] === words[i]) {
-        matchedWords.push(originalWords[i]);
+    for (let i = 0; i < inputWords.length && i < words.length; i++) {
+      const targetWord = words[i];
+      const inputWord = inputWords[i];
+      
+      // Check if input word is a prefix of target word (including punctuation)
+      if (targetWord.toLowerCase().startsWith(inputWord.toLowerCase()) || 
+          stripPunctuation(targetWord).startsWith(stripPunctuation(inputWord))) {
+        matchedWords.push(targetWord.slice(0, inputWord.length));
+      } else if (inputWord === targetWord || 
+                 stripPunctuation(inputWord) === stripPunctuation(targetWord)) {
+        matchedWords.push(targetWord);
       } else {
         break;
       }
     }
     
     setPartialMatch(matchedWords.join(' '));
+
+    // Check for full line match
+    if (input === currentLine || 
+        stripPunctuation(input) === stripPunctuation(currentLine)) {
+      checkLine();
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,10 +69,10 @@ export function LyricsGame() {
 
   const checkLine = () => {
     const currentLine = lyrics[currentLineIndex];
-    const normalizedInput = stripPunctuation(userInput);
-    const normalizedCorrect = stripPunctuation(currentLine.text);
-
-    if (normalizedInput === normalizedCorrect) {
+    
+    // Check exact match first, then stripped match
+    if (userInput === currentLine.text || 
+        stripPunctuation(userInput) === stripPunctuation(currentLine.text)) {
       setScore(score + 1);
       setFeedback(getRandomPraise());
       setLastCorrectLine(currentLine.text);
@@ -133,14 +145,10 @@ export function LyricsGame() {
               type="text"
               value={userInput}
               onChange={handleInputChange}
-              onKeyPress={(e) => e.key === 'Enter' && checkLine()}
               className="w-full p-3 border rounded-lg text-lg"
               placeholder="Type the next line..."
               autoFocus
             />
-            <Button onClick={checkLine} size="lg">
-              Submit
-            </Button>
           </div>
 
           {feedback && (
