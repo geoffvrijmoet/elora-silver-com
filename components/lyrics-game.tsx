@@ -40,6 +40,8 @@ export function LyricsGame() {
   const [isGameComplete, setIsGameComplete] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [player, setPlayer] = useState<YouTubePlayer | null>(null);
+  const [bgPlayer, setBgPlayer] = useState<YouTubePlayer | null>(null);
+  const [isBgPlaying, setIsBgPlaying] = useState(true);
 
   useEffect(() => {
     localStorage.setItem('currentLineIndex', currentLineIndex.toString());
@@ -57,6 +59,13 @@ export function LyricsGame() {
       }
     };
   }, [isGameComplete]);
+
+  useEffect(() => {
+    if (isGameComplete && bgPlayer) {
+      bgPlayer.pauseVideo();
+      setIsBgPlaying(false);
+    }
+  }, [isGameComplete, bgPlayer]);
 
   const stripPunctuation = (text: string) => {
     const normalized = text.toLowerCase().trim();
@@ -267,8 +276,57 @@ export function LyricsGame() {
     }
   };
 
+  const onBgVideoReady = (event: { target: YouTubePlayer }) => {
+    setBgPlayer(event.target);
+  };
+
+  const toggleBgVideo = () => {
+    if (bgPlayer) {
+      if (isBgPlaying) {
+        bgPlayer.pauseVideo();
+      } else {
+        bgPlayer.playVideo();
+      }
+      setIsBgPlaying(!isBgPlaying);
+    }
+  };
+
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6 relative">
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleBgVideo}
+          className="bg-white/90"
+        >
+          {isBgPlaying ? (
+            <Pause className="h-4 w-4" />
+          ) : (
+            <Play className="h-4 w-4" />
+          )}
+        </Button>
+      </div>
+
+      <div className="fixed inset-0 -z-10 invisible">
+        <div className="h-0">
+          <YouTube
+            videoId="BwpdHjVYIcU"
+            opts={{
+              playerVars: {
+                autoplay: 1,
+                controls: 0,
+                loop: 1,
+                playlist: "BwpdHjVYIcU",
+                modestbranding: 1,
+              },
+            }}
+            onReady={onBgVideoReady}
+            className="w-screen h-screen"
+          />
+        </div>
+      </div>
+
       <div className="text-center">
         <h2 className="text-3xl font-bold mb-4">Learn &quot;Shake Ya Ass&quot;</h2>
         {!gameStarted && (
