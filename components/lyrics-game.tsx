@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { lyrics } from '@/lib/lyrics-data';
 import { cn } from '@/lib/utils';
 import YouTube from 'react-youtube';
+import { Music, Play, Pause } from 'lucide-react';
 
 export function LyricsGame() {
   const [currentLineIndex, setCurrentLineIndex] = useState(() => {
@@ -36,6 +37,8 @@ export function LyricsGame() {
     return [];
   });
   const [isGameComplete, setIsGameComplete] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [player, setPlayer] = useState<any>(null);
 
   useEffect(() => {
     localStorage.setItem('currentLineIndex', currentLineIndex.toString());
@@ -248,6 +251,21 @@ export function LyricsGame() {
 
   const VICTORY_GIF = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDNwNGoyM2Y0cDJidmhrcjltODg5Z2RtNHAxOXVrOGVxcHdrb3RrOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/djDeJ5hlJ3Q25QVWIc/giphy.gif";
 
+  const onReady = (event: any) => {
+    setPlayer(event.target);
+  };
+
+  const togglePlay = () => {
+    if (player) {
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
@@ -370,6 +388,21 @@ export function LyricsGame() {
                 className="w-64 h-auto rounded-lg mb-4"
               />
             </div>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <Music className="w-6 h-6" />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={togglePlay}
+                className="w-8 h-8 p-1"
+              >
+                {isPlaying ? (
+                  <Pause className="w-6 h-6" />
+                ) : (
+                  <Play className="w-6 h-6" />
+                )}
+              </Button>
+            </div>
             <div className="h-0 overflow-hidden">
               <YouTube
                 videoId="4e7JA7cgYY0"
@@ -381,6 +414,7 @@ export function LyricsGame() {
                     width: '1',
                   },
                 }}
+                onReady={onReady}
               />
             </div>
             <Button 
