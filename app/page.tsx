@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Carousel } from '@/components/ui/carousel';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -23,7 +24,11 @@ export default function Home() {
         </div>
       </div>
 
-
+      {/* Image Carousel Section */}
+      <section className="py-16 px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Gallery</h2>
+        <Carousel />
+      </section>
     </main>
   );
 }
