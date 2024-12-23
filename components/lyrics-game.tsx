@@ -144,9 +144,36 @@ export function LyricsGame() {
   };
 
   const isChunkBreakNeeded = (currentLine: string, nextLine: string) => {
-    const currentIsChorus = lyrics[matchedLines.indexOf(currentLine)]?.chorus;
-    const nextIsChorus = lyrics[matchedLines.indexOf(nextLine)]?.chorus;
-    return currentIsChorus !== nextIsChorus;
+    const currentLyric = lyrics[matchedLines.indexOf(currentLine)];
+    const nextLyric = lyrics[matchedLines.indexOf(nextLine)];
+    
+    // Check if either line is part of a special section (chorus or bridge)
+    const currentIsSection = currentLyric?.chorus || currentLyric?.bridge;
+    const nextIsSection = nextLyric?.chorus || nextLyric?.bridge;
+    
+    // Check if they're in different sections
+    if (currentIsSection !== nextIsSection) return true;
+    
+    // If they're both in sections, check if they're in the same type
+    if (currentIsSection && nextIsSection) {
+      return (currentLyric?.chorus !== nextLyric?.chorus) || 
+             (currentLyric?.bridge !== nextLyric?.bridge);
+    }
+    
+    return false;
+  };
+
+  const getNextCharacterHint = () => {
+    const currentLine = lyrics[currentLineIndex].text;
+    const normalizedInput = stripPunctuation(userInput);
+    const normalizedTarget = stripPunctuation(currentLine);
+    
+    // If input is longer than target, no hint needed
+    if (normalizedInput.length >= normalizedTarget.length) return;
+    
+    // Get the next character from the original line
+    const nextChar = currentLine[userInput.length] || '';
+    setUserInput(userInput + nextChar);
   };
 
   return (
@@ -180,31 +207,41 @@ export function LyricsGame() {
             <p className="text-lg">Line {currentLineIndex + 1} of {lyrics.length}</p>
           </div>
 
-          <div className="flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center">
             {matchedLines.map((line, index) => (
               <div key={index}>
-                <p className="text-lg text-gray-600 italic">
+                <p className="text-lg text-gray-600 italic leading-tight">
                   "{line}"
                 </p>
                 {index < matchedLines.length - 1 && 
                  isChunkBreakNeeded(line, matchedLines[index + 1]) && (
-                  <div className="h-6" /> // Spacer between chorus and non-chorus
+                  <div className="h-6" /> // Keep larger space between sections
                 )}
               </div>
             ))}
             {partialMatch && (
-              <p className="text-lg text-green-600">
+              <p className="text-lg text-green-600 mt-4">
                 {partialMatch}
               </p>
             )}
-            <input
-              type="text"
-              value={userInput}
-              onChange={handleInputChange}
-              className="w-full p-3 border rounded-lg text-lg"
-              placeholder="Type the next line..."
-              autoFocus
-            />
+            <div className="w-full flex gap-2 items-center mt-4">
+              <input
+                type="text"
+                value={userInput}
+                onChange={handleInputChange}
+                className="flex-1 p-3 border rounded-lg text-lg"
+                placeholder="Type the next line..."
+                autoFocus
+              />
+              <Button 
+                onClick={getNextCharacterHint}
+                variant="outline"
+                size="icon"
+                title="Get hint"
+              >
+                💡
+              </Button>
+            </div>
           </div>
 
           {feedback && (
