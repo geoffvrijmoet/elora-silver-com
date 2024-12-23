@@ -222,6 +222,17 @@ export function LyricsGame() {
     }
   };
 
+  // Add reset function
+  const resetGame = () => {
+    setCurrentLineIndex(0);
+    setScore(0);
+    setUserInput('');
+    setFeedback('');
+    setPartialMatch('');
+    setMatchedLines([]);
+    localStorage.clear();
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
@@ -249,7 +260,16 @@ export function LyricsGame() {
       {gameStarted && (
         <div className="space-y-6">
           <div className="text-center">
-            <p className="text-xl mb-2">Current Score: {score}</p>
+            <div className="flex items-center justify-center gap-4 mb-2">
+              <p className="text-xl">Current Score: {score}</p>
+              <Button 
+                onClick={resetGame}
+                variant="outline"
+                size="sm"
+              >
+                Reset
+              </Button>
+            </div>
             <p className="text-lg">Line {currentLineIndex + 1} of {lyrics.length}</p>
           </div>
 
