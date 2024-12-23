@@ -143,6 +143,12 @@ export function LyricsGame() {
     setMatchedLines([]);
   };
 
+  const isChunkBreakNeeded = (currentLine: string, nextLine: string) => {
+    const currentIsChorus = lyrics[matchedLines.indexOf(currentLine)]?.chorus;
+    const nextIsChorus = lyrics[matchedLines.indexOf(nextLine)]?.chorus;
+    return currentIsChorus !== nextIsChorus;
+  };
+
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
@@ -176,9 +182,15 @@ export function LyricsGame() {
 
           <div className="flex flex-col items-center space-y-4">
             {matchedLines.map((line, index) => (
-              <p key={index} className="text-lg text-gray-600 italic">
-                "{line}"
-              </p>
+              <div key={index}>
+                <p className="text-lg text-gray-600 italic">
+                  "{line}"
+                </p>
+                {index < matchedLines.length - 1 && 
+                 isChunkBreakNeeded(line, matchedLines[index + 1]) && (
+                  <div className="h-6" /> // Spacer between chorus and non-chorus
+                )}
+              </div>
             ))}
             {partialMatch && (
               <p className="text-lg text-green-600">
