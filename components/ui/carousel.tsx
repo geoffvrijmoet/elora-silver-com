@@ -40,21 +40,21 @@ export function Carousel({ images }: CarouselProps) {
       </div>
       
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
-        className="absolute left-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-32 h-32 rounded-full shadow-lg border-2 border-white"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hover:bg-transparent active:bg-transparent"
         onClick={scrollPrev}
       >
-        <ChevronLeft className="h-24 w-24 text-gray-700" />
+        <ChevronLeft className="h-8 w-8 text-white" />
       </Button>
       
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
-        className="absolute right-8 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white z-20 w-32 h-32 rounded-full shadow-lg border-2 border-white"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 hover:bg-transparent active:bg-transparent"
         onClick={scrollNext}
       >
-        <ChevronRight className="h-24 w-24 text-gray-700" />
+        <ChevronRight className="h-8 w-8 text-white" />
       </Button>
     </div>
   );
