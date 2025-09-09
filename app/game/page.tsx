@@ -18,7 +18,7 @@ export default function GamePage() {
       <main className="min-h-screen flex flex-col items-center justify-center p-4">
         <h2 className="text-2xl font-bold mb-6">Enter Password to Play</h2>
         <LoginForm />
-        <Link href="/" className="mt-4">
+        <Link href="/secret" className="mt-4">
           <Button variant="ghost">← Back to Home</Button>
         </Link>
       </main>

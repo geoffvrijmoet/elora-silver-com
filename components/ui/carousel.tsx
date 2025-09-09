@@ -45,7 +45,7 @@ export function Carousel({ images }: CarouselProps) {
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hover:bg-transparent active:bg-transparent"
         onClick={scrollPrev}
       >
-        <ChevronLeft className="h-8 w-8 text-white" />
+        <ChevronLeft className="h-8 w-8 text-black" />
       </Button>
       
       <Button
@@ -54,7 +54,7 @@ export function Carousel({ images }: CarouselProps) {
         className="absolute right-4 top-1/2 -translate-y-1/2 z-20 hover:bg-transparent active:bg-transparent"
         onClick={scrollNext}
       >
-        <ChevronRight className="h-8 w-8 text-white" />
+        <ChevronRight className="h-8 w-8 text-black" />
       </Button>
     </div>
   );
