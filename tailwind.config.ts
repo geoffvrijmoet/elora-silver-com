@@ -10,6 +10,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+        'brand-primary': '#3A7D7C', // A professional, calming teal
+        'brand-secondary': '#F0F5F4', // A very light, complementary green
   			background: 'var(--background)',
   			foreground: 'var(--foreground)'
   		},
