@@ -3,54 +3,57 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 text-gray-800">
-      <div className="w-full max-w-6xl mx-auto">
+    <main className="h-screen flex flex-col bg-gray-100 text-gray-800">
+      <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
         {/* Header Section */}
-        <header className="text-center p-6 bg-white rounded-lg shadow-md mb-4">
+        <header className="text-center p-4 bg-white rounded-lg shadow-md mb-4">
           <h1 className="text-3xl font-bold text-gray-900">Elora Silver, LCSW</h1>
           <p className="text-brand-primary font-medium">Licensed Clinical Social Worker</p>
         </header>
 
-        {/* Main Content Grid */}
-        <div className="grid md:grid-cols-3 gap-4">
+        {/* Main Content Flex Container */}
+        <div className="flex-grow md:flex md:gap-4">
           {/* Left Column: Image + Intro */}
-          <div className="md:col-span-1 bg-brand-secondary p-6 rounded-lg shadow-sm">
-            <Image
-              src="https://photos.psychologytoday.com/7e041e14-ca9a-4770-aab8-830bc7753fc9/1/320x400.jpeg" 
-              alt="Elora Silver, LCSW" 
-              width={192}
-              height={240}
-              className="object-cover rounded-lg shadow-lg mx-auto mb-4"
-            />
-            <p className="text-sm text-gray-700">
+          <div className="flex-1 bg-brand-secondary p-6 rounded-lg shadow-sm flex flex-col mb-4 md:mb-0">
+            <div className="flex-shrink-0 mx-auto">
+              <Image
+                src="https://photos.psychologytoday.com/7e041e14-ca9a-4770-aab8-830bc7753fc9/1/320x400.jpeg"
+                alt="Elora Silver, LCSW"
+                width={192}
+                height={240}
+                className="object-cover rounded-lg shadow-lg"
+              />
+            </div>
+            <p className="text-sm text-gray-700 mt-4">
               A compassionate, client-centered therapist dedicated to helping you navigate life&apos;s challenges.
             </p>
           </div>
 
           {/* Middle Column: About + Services */}
-          <div className="md:col-span-1 space-y-4">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="flex-1 flex flex-col gap-4 mb-4 md:mb-0">
+            <div className="flex-grow bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-bold text-lg text-brand-primary mb-2">My Approach</h3>
               <p className="text-sm text-gray-600">
-                I use a collaborative, strengths-based approach, integrating modalities like CBT and mindfulness to meet your unique needs.
+                I use a collaborative, strengths-based approach, integrating modalities like CBT and mindfulness to meet your unique needs. My goal is to create a safe, non-judgmental space where we can work together towards your healing and growth.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="flex-grow bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-bold text-lg text-brand-primary mb-2">Services</h3>
               <ul className="list-disc list-inside text-sm text-gray-600">
                 <li>Individual Therapy</li>
                 <li>Couples Counseling</li>
                 <li>Anxiety & Depression</li>
-                <li>Life Transitions</li>
+                <li>Life Transitions & Stress Management</li>
+                <li>Trauma-Informed Care</li>
               </ul>
             </div>
           </div>
 
           {/* Right Column: Contact */}
-          <div className="md:col-span-1 bg-blue-50 p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
+          <div className="flex-1 bg-blue-50 p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
             <h3 className="font-bold text-lg text-brand-primary mb-3">Get in Touch</h3>
             <p className="text-sm text-gray-600 mb-4">
-              Accepting new clients. Schedule a free 15-minute consultation today.
+              I am currently accepting new clients. Reach out to schedule a free 15-minute consultation to see if we are a good fit.
             </p>
             <a
               href="mailto:info@elorasilver.com"
