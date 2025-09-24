@@ -11,10 +11,10 @@ export default function Home() {
           <p className="text-brand-primary font-medium">Licensed Clinical Social Worker</p>
         </header>
 
-        {/* Main Content Flex Container */}
-        <div className="flex-grow md:flex md:gap-4">
+        {/* Main Content Grid Container */}
+        <div className="flex-grow grid md:grid-cols-3 md:grid-rows-2 gap-4">
           {/* Left Column: Image + Intro */}
-          <div className="flex-1 bg-gray-50 p-6 rounded-lg shadow-sm flex flex-col mb-4 md:mb-0">
+          <div className="md:row-span-2 bg-gray-50 p-6 rounded-lg shadow-sm flex flex-col">
             <div className="flex-shrink-0 mx-auto">
               <Image
                 src="https://photos.psychologytoday.com/7e041e14-ca9a-4770-aab8-830bc7753fc9/1/320x400.jpeg"
@@ -29,31 +29,31 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Middle Column: About + Services */}
-          <div className="flex-1 flex flex-col gap-4 mb-4 md:mb-0">
-            <div className="flex-grow bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg text-brand-primary mb-2">My Approach</h3>
-              <p className="text-sm text-gray-600">
-                I use a collaborative, strengths-based approach, integrating modalities like CBT and mindfulness to meet your unique needs. My goal is to create a safe, non-judgmental space where we can work together towards your healing and growth.
-              </p>
-            </div>
-            <div className="flex-grow bg-gray-50 p-6 rounded-lg shadow-sm">
-              <h3 className="font-bold text-lg text-brand-primary mb-2">Services</h3>
-              <ul className="list-disc list-inside text-sm text-gray-600">
-                <li>Individual Therapy</li>
-                <li>Couples Counseling</li>
-                <li>Anxiety & Depression</li>
-                <li>Life Transitions & Stress Management</li>
-                <li>Trauma-Informed Care</li>
-              </ul>
-            </div>
+          {/* My Approach Section (Top Right) */}
+          <div className="md:col-span-2 bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h3 className="font-bold text-lg text-brand-primary mb-2">My Approach</h3>
+            <p className="text-sm text-gray-600">
+              I use a collaborative, strengths-based approach, integrating modalities like CBT and mindfulness to meet your unique needs. My goal is to create a safe, non-judgmental space where we can work together towards your healing and growth. I believe in fostering a therapeutic relationship built on trust, empathy, and respect.
+            </p>
           </div>
 
-          {/* Right Column: Contact */}
-          <div className="flex-1 bg-gray-50 p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
+          {/* Services Section (Bottom Middle) */}
+          <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h3 className="font-bold text-lg text-brand-primary mb-2">Services</h3>
+            <ul className="list-disc list-inside text-sm text-gray-600">
+              <li>Individual Therapy</li>
+              <li>Couples Counseling</li>
+              <li>Anxiety & Depression</li>
+              <li>Life Transitions & Stress Management</li>
+              <li>Trauma-Informed Care</li>
+            </ul>
+          </div>
+
+          {/* Get in Touch Section (Bottom Right) */}
+          <div className="bg-gray-50 p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
             <h3 className="font-bold text-lg text-brand-primary mb-3">Get in Touch</h3>
             <p className="text-sm text-gray-600 mb-4">
-              I am currently accepting new clients. Reach out to schedule a free 15-minute consultation to see if we are a good fit.
+              I am currently accepting new clients. Reach out to schedule a free 15-minute consultation.
             </p>
             <a
               href="mailto:info@elorasilver.com"
