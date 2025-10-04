@@ -42,7 +42,6 @@ export default function Home() {
             <h3 className="font-bold text-lg text-gray-800 mb-2">Services</h3>
             <ul className="list-disc list-inside text-sm text-gray-600">
               <li>Individual Therapy</li>
-              <li>Couples Counseling</li>
               <li>Anxiety & Depression</li>
               <li>Life Transitions & Stress Management</li>
               <li>Trauma-Informed Care</li>
@@ -64,6 +63,28 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Color Palette Section */}
+      <section className="w-full max-w-7xl mx-auto p-4">
+        <h3 className="text-center text-lg font-semibold text-gray-800 mb-4">Background Color Options</h3>
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="h-32 rounded-lg bg-muted-green flex items-center justify-center">
+            <span className="text-white font-semibold mix-blend-difference">Muted Green</span>
+          </div>
+          <div className="h-32 rounded-lg bg-warm-peach flex items-center justify-center">
+            <span className="text-white font-semibold mix-blend-difference">Warm Peach</span>
+          </div>
+          <div className="h-32 rounded-lg bg-dusty-purple flex items-center justify-center">
+            <span className="text-white font-semibold mix-blend-difference">Dusty Purple</span>
+          </div>
+          <div className="h-32 rounded-lg bg-light-terracotta flex items-center justify-center">
+            <span className="text-white font-semibold mix-blend-difference">Light Terracotta</span>
+          </div>
+          <div className="h-32 rounded-lg bg-soft-gray flex items-center justify-center">
+            <span className="text-white font-semibold mix-blend-difference">Soft Gray</span>
+          </div>
+        </div>
+      </section>
 
       {/* Secret Game Button */}
       <div className="fixed bottom-4 right-4">
