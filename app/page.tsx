@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <main className="h-screen flex flex-col bg-white text-gray-800">
+    <main className="h-screen flex flex-col bg-muted-green-light text-gray-800">
       <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
         {/* Header Section */}
         <header className="text-center p-4 bg-white rounded-lg shadow-sm mb-4">
@@ -64,52 +64,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Color Palette Section */}
-      <section className="w-full max-w-7xl mx-auto p-4">
-        <h3 className="text-center text-lg font-semibold text-gray-800 mb-4">Background Color Options</h3>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="h-32 rounded-lg bg-muted-green flex items-center justify-center">
-              <span className="text-white font-semibold mix-blend-difference">Muted Green</span>
-            </div>
-            <div className="h-32 rounded-lg bg-muted-green-light flex items-center justify-center">
-              <span className="text-gray-800 font-semibold mix-blend-darken">Pale Green</span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="h-32 rounded-lg bg-warm-peach flex items-center justify-center">
-              <span className="text-white font-semibold mix-blend-difference">Warm Peach</span>
-            </div>
-            <div className="h-32 rounded-lg bg-warm-peach-light flex items-center justify-center">
-              <span className="text-gray-800 font-semibold mix-blend-darken">Pale Peach</span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="h-32 rounded-lg bg-dusty-purple flex items-center justify-center">
-              <span className="text-white font-semibold mix-blend-difference">Dusty Purple</span>
-            </div>
-            <div className="h-32 rounded-lg bg-dusty-purple-light flex items-center justify-center">
-              <span className="text-gray-800 font-semibold mix-blend-darken">Pale Purple</span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="h-32 rounded-lg bg-light-terracotta flex items-center justify-center">
-              <span className="text-white font-semibold mix-blend-difference">Light Terracotta</span>
-            </div>
-            <div className="h-32 rounded-lg bg-light-terracotta-light flex items-center justify-center">
-              <span className="text-gray-800 font-semibold mix-blend-darken">Pale Terracotta</span>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="h-32 rounded-lg bg-soft-gray flex items-center justify-center">
-              <span className="text-white font-semibold mix-blend-difference">Soft Gray</span>
-            </div>
-            <div className="h-32 rounded-lg bg-soft-gray-light flex items-center justify-center">
-              <span className="text-gray-800 font-semibold mix-blend-darken">Pale Gray</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Secret Game Button */}
       <div className="fixed bottom-4 right-4">
