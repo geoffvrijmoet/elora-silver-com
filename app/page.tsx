@@ -6,7 +6,7 @@ export default function Home() {
     <main className="h-screen flex flex-col bg-muted-green-light text-gray-800">
       <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
         {/* Header Section */}
-        <header className="text-center p-4 bg-white rounded-lg shadow-sm mb-4">
+        <header className="text-center p-4 bg-brand-secondary rounded-lg shadow-sm mb-4">
           <h1 className="text-3xl font-bold text-gray-900">Elora Silver, LCSW</h1>
           <p className="text-gray-600 font-medium">Licensed Clinical Social Worker</p>
         </header>
@@ -14,7 +14,7 @@ export default function Home() {
         {/* Main Content Grid Container */}
         <div className="flex-grow grid md:grid-cols-3 md:grid-rows-2 gap-4">
           {/* Left Column: Image + Intro */}
-          <div className="md:row-span-2 bg-white p-6 rounded-lg shadow-sm flex flex-col">
+          <div className="md:row-span-2 bg-brand-secondary p-6 rounded-lg shadow-sm flex flex-col">
             <div className="flex-shrink-0 mx-auto">
               <Image
                 src="https://photos.psychologytoday.com/7e041e14-ca9a-4770-aab8-830bc7753fc9/1/320x400.jpeg"
@@ -30,7 +30,7 @@ export default function Home() {
           </div>
 
           {/* My Approach Section (Top Right) */}
-          <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-sm">
+          <div className="md:col-span-2 bg-brand-secondary p-6 rounded-lg shadow-sm">
             <h3 className="font-bold text-lg text-gray-800 mb-2">My Approach</h3>
             <p className="text-sm text-gray-600">
               I use a collaborative, strengths-based approach, integrating modalities like CBT and mindfulness to meet your unique needs. My goal is to create a safe, non-judgmental space where we can work together towards your healing and growth. I believe in fostering a therapeutic relationship built on trust, empathy, and respect.
@@ -38,7 +38,7 @@ export default function Home() {
           </div>
 
           {/* Services Section (Bottom Middle) */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="bg-brand-secondary p-6 rounded-lg shadow-sm">
             <h3 className="font-bold text-lg text-gray-800 mb-2">Services</h3>
             <ul className="list-disc list-inside text-sm text-gray-600">
               <li>Individual Therapy</li>
@@ -49,7 +49,7 @@ export default function Home() {
           </div>
 
           {/* Get in Touch Section (Bottom Right) */}
-          <div className="bg-white p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
+          <div className="bg-brand-secondary p-6 rounded-lg shadow-sm flex flex-col justify-center items-center text-center">
             <h3 className="font-bold text-lg text-gray-800 mb-3">Get in Touch</h3>
             <p className="text-sm text-gray-600 mb-4">
               I am currently accepting new clients. Reach out to schedule a free 15-minute consultation.
