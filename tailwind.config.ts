@@ -11,6 +11,7 @@ const config: Config = {
   	extend: {
   		colors: {
         'muted-green-light': '#D1E2D1',
+        'dark-green-text': '#2A4B2A',
 			background: 'var(--background)',
 			foreground: 'var(--foreground)'
   		},
