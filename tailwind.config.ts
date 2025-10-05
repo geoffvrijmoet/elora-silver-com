@@ -11,8 +11,6 @@ const config: Config = {
   	extend: {
   		colors: {
         'muted-green-light': '#D1E2D1',
-        'super-pale-green': '#DBE7DB',
-        'brand-secondary': '#F0F5F4',
 			background: 'var(--background)',
 			foreground: 'var(--foreground)'
   		},
