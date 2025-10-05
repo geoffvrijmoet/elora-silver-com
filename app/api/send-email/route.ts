@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   try {
     // Send notification email to Elora
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // Replace with your verified domain
+      from: 'contact@elorasilver.com',
       to: 'info@elorasilver.com', // Elora's email address
       subject: 'New Contact Form Submission',
       react: NotificationEmail({ name, email, message }),
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     // Send welcome email to the user
     await resend.emails.send({
-      from: 'onboarding@resend.dev', // Replace with your verified domain
+      from: 'contact@elorasilver.com',
       to: email,
       subject: 'Thank you for your message!',
       react: WelcomeEmail({ name }),
