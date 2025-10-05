@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ContactModal } from '@/components/contact-modal';
 import { Button } from '@/components/ui/button';
+import { Send } from 'lucide-react';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,8 +65,9 @@ export default function Home() {
             </p>
             <Button
               onClick={() => setIsModalOpen(true)}
-              className="w-full bg-dark-green-text hover:opacity-90 text-white"
+              className="w-full bg-gradient-to-r from-dark-green-text to-dark-green-light text-white shadow-lg transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
             >
+              <Send className="mr-2 h-4 w-4" />
               Contact Me
             </Button>
             <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
