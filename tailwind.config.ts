@@ -19,7 +19,10 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+		},
+      boxShadow: {
+        'bottom': '0 4px 6px -2px rgba(0, 0, 0, 0.1)',
+      }
   	}
   },
   plugins: [require("tailwindcss-animate")],

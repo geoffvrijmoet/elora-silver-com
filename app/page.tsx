@@ -6,7 +6,7 @@ export default function Home() {
     <main className="h-screen flex flex-col bg-muted-green-light text-dark-green-text">
       <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
         {/* Header Section */}
-        <header className="text-center p-4 rounded-lg shadow-md mb-4">
+        <header className="text-center p-4 rounded-lg shadow-bottom mb-4">
           <h1 className="text-3xl font-bold">Elora Silver, LCSW</h1>
           <p className="font-medium opacity-80">Licensed Clinical Social Worker</p>
         </header>
@@ -14,14 +14,14 @@ export default function Home() {
         {/* Main Content Grid Container */}
         <div className="flex-grow grid md:grid-cols-3 md:grid-rows-2 gap-4">
           {/* Left Column: Image + Intro */}
-          <div className="md:row-span-2 p-6 rounded-lg shadow-md flex flex-col">
+          <div className="md:row-span-2 p-6 rounded-lg flex flex-col">
             <div className="flex-shrink-0 mx-auto">
               <Image
                 src="https://photos.psychologytoday.com/7e041e14-ca9a-4770-aab8-830bc7753fc9/1/320x400.jpeg"
                 alt="Elora Silver, LCSW"
                 width={384}
                 height={480}
-                className="object-cover rounded-lg shadow-lg"
+                className="object-cover rounded-lg"
               />
             </div>
             <p className="text-sm mt-4 opacity-90">
@@ -38,7 +38,7 @@ export default function Home() {
           </div>
 
           {/* Services Section (Bottom Middle) */}
-          <div className="p-6 rounded-lg shadow-md">
+          <div className="p-6 rounded-lg">
             <h3 className="font-bold text-lg mb-2">Services</h3>
             <ul className="list-disc list-inside text-sm opacity-80">
               <li>Individual Therapy</li>
@@ -49,7 +49,7 @@ export default function Home() {
           </div>
 
           {/* Get in Touch Section (Bottom Right) */}
-          <div className="p-6 rounded-lg shadow-md flex flex-col justify-center items-center text-center">
+          <div className="p-6 rounded-lg flex flex-col justify-center items-center text-center">
             <h3 className="font-bold text-lg mb-3">Get in Touch</h3>
             <p className="text-sm mb-4 opacity-80">
               I am currently accepting new clients. Reach out to schedule a free 15-minute consultation.
