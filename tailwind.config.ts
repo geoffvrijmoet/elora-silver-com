@@ -12,7 +12,7 @@ const config: Config = {
   		colors: {
         'muted-green-light': '#D1E2D1',
         'dark-green-text': '#2A4B2A',
-        'dark-green-light': '#3B6B3B',
+        'muted-green-dark': '#C1D1C1',
 			background: 'var(--background)',
 			foreground: 'var(--foreground)'
   		},
@@ -23,6 +23,7 @@ const config: Config = {
 		},
       boxShadow: {
         'bottom': '0 4px 6px -2px rgba(0, 0, 0, 0.1)',
+        'glow': '0 0 15px 5px rgba(209, 226, 209, 0.7)',
       }
   	}
   },

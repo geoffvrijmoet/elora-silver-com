@@ -66,12 +66,15 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   return (
     <>
+      {/* Overlay */}
       <div
         className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ease-in-out ${
           show ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={handleClose}
       />
+
+      {/* Modal Content - The "Tray" */}
       <div
         className={`absolute bottom-full mb-2 z-50 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl transition-all duration-300 ease-in-out origin-bottom-right ${
           show ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
