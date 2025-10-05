@@ -1,12 +1,20 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ContactModal } from '@/components/contact-modal';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <main className="h-screen flex flex-col bg-muted-green-light text-dark-green-text">
-      <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
-        {/* Header Section */}
-        <header className="text-center p-4 rounded-lg shadow-bottom mb-4">
+    <>
+      <main className="h-screen flex flex-col bg-muted-green-light text-dark-green-text">
+        <div className="w-full max-w-7xl mx-auto p-4 flex flex-col flex-grow">
+          {/* Header Section */}
+          <header className="text-center p-4 rounded-lg shadow-bottom mb-4">
           <h1 className="text-3xl font-bold">Elora Silver, LCSW</h1>
           <p className="font-medium opacity-80">Licensed Clinical Social Worker</p>
         </header>
@@ -49,17 +57,18 @@ export default function Home() {
           </div>
 
           {/* Get in Touch Section (Bottom Right) */}
-          <div className="p-6 rounded-lg flex flex-col justify-center items-center text-center">
+          <div className="relative p-6 rounded-lg flex flex-col justify-center items-center text-center">
             <h3 className="font-bold text-lg mb-3">Get in Touch</h3>
             <p className="text-sm mb-4 opacity-80">
               I am currently accepting new clients. Reach out to schedule a free 15-minute consultation.
             </p>
-            <a
-              href="mailto:info@elorasilver.com"
-              className="w-full text-center bg-dark-green-text hover:opacity-90 text-white font-semibold py-3 px-4 rounded-lg transition-colors"
+            <Button
+              onClick={() => setIsModalOpen(true)}
+              className="w-full bg-dark-green-text hover:opacity-90 text-white"
             >
-              Email Elora
-            </a>
+              Contact Me
+            </Button>
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           </div>
         </div>
       </div>
@@ -67,8 +76,8 @@ export default function Home() {
 
       {/* Secret Game Button */}
       <div className="fixed bottom-4 right-4">
-        <Link 
-          href="/game" 
+        <Link
+          href="/game"
           className="inline-flex items-center justify-center w-12 h-12 bg-transparent hover:bg-gray-200 text-transparent hover:text-gray-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 opacity-0 hover:opacity-100"
           title="Secret Game"
         >
@@ -78,5 +87,6 @@ export default function Home() {
         </Link>
       </div>
     </main>
+  </>
   );
 }
