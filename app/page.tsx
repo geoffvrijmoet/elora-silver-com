@@ -64,7 +64,7 @@ export default function Home() {
               </p>
               <Button
                 onClick={() => setIsModalOpen(true)}
-                className="w-auto bg-muted-green-dark text-dark-green-text border border-dark-green-text/50 px-6 py-2 transition-all duration-300 hover:shadow-glow"
+                className="w-auto bg-muted-green-dark border border-dark-green-text/50 px-6 py-2 transition-colors duration-300 hover:bg-muted-green-light"
               >
                 Contact Me
               </Button>
