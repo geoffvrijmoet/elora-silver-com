@@ -76,7 +76,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
       {/* Modal Content - The "Tray" */}
       <div
-        className={`absolute bottom-full mb-2 z-50 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl transition-all duration-300 ease-in-out origin-bottom-right ${
+        className={`absolute bottom-full mb-2 z-50 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl transition-all duration-300 ease-in-out origin-bottom ${
           show ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}
       >

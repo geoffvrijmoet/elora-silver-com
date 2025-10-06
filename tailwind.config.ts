@@ -12,7 +12,6 @@ const config: Config = {
   		colors: {
         'muted-green-light': '#E6EAE6',
         'dark-green-text': '#2A4B2A',
-        'muted-green-dark': '#D6DADB',
 			background: 'var(--background)',
 			foreground: 'var(--foreground)'
   		},
