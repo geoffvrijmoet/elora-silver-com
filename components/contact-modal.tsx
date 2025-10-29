@@ -74,9 +74,9 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         onClick={handleClose}
       />
 
-      {/* Modal Content - The "Tray" */}
+      {/* Modal Content - Centered */}
       <div
-        className={`absolute bottom-full mb-2 z-50 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl transition-all duration-300 ease-in-out origin-bottom ${
+        className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl transition-all duration-300 ease-in-out ${
           show ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}
       >
@@ -93,7 +93,11 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
           <div className="text-center">
             <h2 className="mb-2 text-xl font-bold text-gray-900">Thank You!</h2>
             <p className="mb-4 text-sm text-gray-600">Your message has been sent successfully. I will get back to you shortly.</p>
-            <Button onClick={handleClose} className="w-full bg-dark-green-text hover:opacity-90">
+            <Button 
+              onClick={handleClose} 
+              variant="outline"
+              className="w-full bg-transparent border-dark-green-text/50 text-dark-green-text hover:bg-white/20"
+            >
               Close
             </Button>
           </div>
@@ -116,7 +120,12 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <label htmlFor="message" className="sr-only">Message</label>
                 <Textarea id="message" placeholder="Your Message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} required disabled={status === 'loading'} />
               </div>
-              <Button type="submit" className="w-full bg-dark-green-text hover:opacity-90" disabled={status === 'loading'}>
+              <Button 
+                type="submit" 
+                variant="outline"
+                className="w-full bg-transparent border-dark-green-text/50 text-dark-green-text hover:bg-white/20" 
+                disabled={status === 'loading'}
+              >
                 {status === 'loading' ? 'Sending...' : 'Send Message'}
               </Button>
               {status === 'error' && (
