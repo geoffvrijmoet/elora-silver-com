@@ -76,8 +76,9 @@ export default function Home() {
                     I am currently accepting new clients. Reach out to schedule a free 15-minute consultation.
                   </p>
                   <Button
+                    variant="outline"
                     onClick={() => setIsModalOpen(true)}
-                    className="w-auto bg-transparent border border-dark-green-text/50 px-6 py-2 transition-colors duration-300 hover:bg-white/20"
+                    className="w-auto bg-transparent border-dark-green-text/50 text-dark-green-text px-6 py-2 transition-colors duration-300 hover:bg-white/20"
                   >
                     Contact Me
                   </Button>
@@ -89,15 +90,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Secret Game Button */}
+      {/* Secret Smiley Button */}
       <div className="fixed bottom-4 right-4">
         <Link
-          href="/game"
-          className="inline-flex items-center justify-center w-12 h-12 bg-transparent hover:bg-gray-200 text-transparent hover:text-gray-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 opacity-0 hover:opacity-100"
-          title="Secret Game"
+          href="/secret"
+          className="inline-flex items-center justify-center w-12 h-12 bg-transparent hover:bg-gray-200/20 text-transparent hover:text-gray-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 opacity-0 hover:opacity-60"
+          title="Secret Page"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2c.83 0 1.5-.67 1.5-1.5S7.33 15 6.5 15 5 15.67 5 16.5s.67 1.5 1.5 1.5zm11 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM9 11c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm6 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1z"/>
           </svg>
         </Link>
       </div>
