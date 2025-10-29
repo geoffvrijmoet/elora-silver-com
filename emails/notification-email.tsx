@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Html, Head, Body, Container, Text, Heading } from '@react-email/components';
 
 interface NotificationEmailProps {
   name: string;
@@ -11,15 +12,18 @@ export const NotificationEmail: React.FC<Readonly<NotificationEmailProps>> = ({
   email,
   message,
 }) => (
-  <div>
-    <h1>New Contact Form Submission</h1>
-    <p>You have received a new message from your website's contact form.</p>
-    <h2>Sender Details:</h2>
-    <ul>
-      <li><strong>Name:</strong> {name}</li>
-      <li><strong>Email:</strong> {email}</li>
-    </ul>
-    <h2>Message:</h2>
-    <p>{message}</p>
-  </div>
+  <Html>
+    <Head />
+    <Body>
+      <Container>
+        <Heading>New Contact Form Submission</Heading>
+        <Text>You have received a new message from your website's contact form.</Text>
+        <Heading as="h2">Sender Details:</Heading>
+        <Text><strong>Name:</strong> {name}</Text>
+        <Text><strong>Email:</strong> {email}</Text>
+        <Heading as="h2">Message:</Heading>
+        <Text>{message}</Text>
+      </Container>
+    </Body>
+  </Html>
 );
