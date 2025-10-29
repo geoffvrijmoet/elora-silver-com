@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Html, Head, Body, Container, Text, Heading } from '@react-email/components';
 
 interface NotificationEmailProps {
   name: string;
@@ -7,23 +6,21 @@ interface NotificationEmailProps {
   message: string;
 }
 
-export const NotificationEmail: React.FC<Readonly<NotificationEmailProps>> = ({
-  name,
-  email,
-  message,
-}) => (
-  <Html>
-    <Head />
-    <Body>
-      <Container>
-        <Heading>New Contact Form Submission</Heading>
-        <Text>You have received a new message from your website's contact form.</Text>
-        <Heading as="h2">Sender Details:</Heading>
-        <Text><strong>Name:</strong> {name}</Text>
-        <Text><strong>Email:</strong> {email}</Text>
-        <Heading as="h2">Message:</Heading>
-        <Text>{message}</Text>
-      </Container>
-    </Body>
-  </Html>
-);
+export const NotificationEmail = ({ name, email, message }: NotificationEmailProps) => {
+  return React.createElement('div', {
+    style: {
+      fontFamily: 'Arial, sans-serif',
+      maxWidth: '600px',
+      margin: '0 auto',
+      padding: '20px',
+    }
+  }, [
+    React.createElement('h1', { key: 'title' }, 'New Contact Form Submission'),
+    React.createElement('p', { key: 'intro' }, 'You have received a new message from your website\'s contact form.'),
+    React.createElement('h2', { key: 'details-title' }, 'Sender Details:'),
+    React.createElement('p', { key: 'name' }, `Name: ${name}`),
+    React.createElement('p', { key: 'email' }, `Email: ${email}`),
+    React.createElement('h2', { key: 'message-title' }, 'Message:'),
+    React.createElement('p', { key: 'message', style: { whiteSpace: 'pre-wrap' } }, message)
+  ]);
+};

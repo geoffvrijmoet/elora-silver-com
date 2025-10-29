@@ -1,6 +1,4 @@
 import { Resend } from 'resend';
-import { WelcomeEmail } from '@/emails/welcome-email';
-import { NotificationEmail } from '@/emails/notification-email';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -19,7 +17,17 @@ export async function POST(request: Request) {
       from: 'contact@elorasilver.com',
       to: 'info@elorasilver.com', // Elora's email address
       subject: 'New Contact Form Submission',
-      react: NotificationEmail({ name, email, message }),
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1>New Contact Form Submission</h1>
+          <p>You have received a new message from your website's contact form.</p>
+          <h2>Sender Details:</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <h2>Message:</h2>
+          <p style="white-space: pre-wrap;">${message}</p>
+        </div>
+      `,
     });
 
     // Send welcome email to the user
@@ -27,7 +35,14 @@ export async function POST(request: Request) {
       from: 'contact@elorasilver.com',
       to: email,
       subject: 'Thank you for your message!',
-      react: WelcomeEmail({ name }),
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1>Welcome, ${name}!</h1>
+          <p>Thank you for reaching out. I have received your message and will get back to you as soon as possible.</p>
+          <p>Best,</p>
+          <p>Elora Silver, LCSW</p>
+        </div>
+      `,
     });
 
     return NextResponse.json({ message: 'Emails sent successfully!' }, { status: 200 });
