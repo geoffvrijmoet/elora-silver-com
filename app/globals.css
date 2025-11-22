@@ -4,6 +4,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #E6EAE6;
 }
 
 @layer utilities {
@@ -15,5 +16,50 @@ body {
 @layer base {
   :root {
     --radius: 0.5rem;
+  }
+}
+
+@media print {
+  @page {
+    size: 8.5in 11in;
+    margin: 0.5in;
+  }
+  
+  body {
+    background: white;
+  }
+  
+  .resume-container {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .job-entry {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .job-entry:not(:last-child) {
+    page-break-after: auto;
+    break-after: auto;
   }
 }

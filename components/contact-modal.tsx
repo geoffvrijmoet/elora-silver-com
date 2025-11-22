@@ -90,11 +90,26 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
         </button>
 
         {status === 'success' ? (
-          <div className="text-center">
-            <h2 className="mb-2 text-xl font-bold text-gray-900">Thank You!</h2>
-            <p className="mb-4 text-sm text-gray-600">Your message has been sent successfully. I will get back to you shortly.</p>
-            <Button 
-              onClick={handleClose} 
+          <div className="text-center py-4">
+            <div className="mb-4 flex justify-center">
+              <div className="rounded-full bg-green-100 p-3">
+                <svg
+                  className="h-8 w-8 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">Message Sent!</h2>
+            <p className="mb-6 text-sm text-gray-600">
+              Thank you for reaching out. I&apos;ve received your message and will get back to you as soon as possible.
+            </p>
+            <Button
+              onClick={handleClose}
               variant="outline"
               className="w-full bg-transparent border-dark-green-text/50 text-dark-green-text hover:bg-white/20"
             >
