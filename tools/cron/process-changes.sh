@@ -156,7 +156,7 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
 
   # Construct the Vercel preview URL
   SANITIZED_BRANCH=$(echo "$BRANCH" | tr '/' '-')
-  PREVIEW_URL="https://elora-silver-com-git-${SANITIZED_BRANCH}-geoffvrijmoets-projects.vercel.app"
+  PREVIEW_URL="https://elora-silver-com-git-${SANITIZED_BRANCH}-geoff-vrijmoets-projects.vercel.app"
 
   # Update MongoDB
   $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "preview_ready" \
