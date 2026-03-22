@@ -33,12 +33,12 @@ export default function Home() {
           if (data.price !== null && data.price !== undefined) {
             setSessionPrice(data.price);
           }
-          // If price is null, fallback to $150 will be used in the display
+          // If price is null, fallback to $185 will be used in the display
           setPriceLoading(false);
         })
         .catch((error) => {
           console.error('Failed to fetch price:', error);
-          // On error, sessionPrice stays null, so fallback to $150 will be used
+          // On error, sessionPrice stays null, so fallback to $185 will be used
           setPriceLoading(false);
         });
     }
@@ -170,46 +170,33 @@ export default function Home() {
                   <div>
                     <h3 className="font-semibold mb-2">Session Fees</h3>
                     <p>
-                      Individual sessions:{' '}
-                      {priceLoading ? (
-                        <span className="opacity-60">Loading...</span>
-                      ) : sessionPrice !== null ? (
-                        `$${sessionPrice} per session`
-                      ) : (
-                        '$150 per session'
-                      )}
+                      Individual sessions: $185 per session
                     </p>
                     <p className="mt-2">Sliding scale available based on income. Please reach out to discuss options.</p>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Accepted Insurance</h3>
-                    <p className="mb-2">Insurance is verified through Headway or Sondermind platforms. Accepted plans include:</p>
+                    <p className="mb-2 italic" style={{ fontSize: '15px' }}>Please note that I am unable to bill through insurance for clients based in Vermont.</p>
+                    <p className="mb-2">Insurance is verified through Headway. Accepted plans include:</p>
                     <div className="flex flex-col md:flex-row gap-6 md:gap-8">
                       <ul className="list-disc list-inside space-y-1 ml-2 flex-1">
                         <li>Aetna</li>
-                        <li>Alliance Coal Health Plan</li>
                         <li>Anthem Blue Cross Blue Shield</li>
                         <li>Anthem EAP</li>
                         <li>Carelon Behavioral Health</li>
                         <li>Cigna and Evernorth</li>
-                        <li>ClaimDoc</li>
                         <li>Empire Blue Cross Blue Shield</li>
                       </ul>
                       <ul className="list-disc list-inside space-y-1 ml-2 flex-1">
-                        <li>FAIROS/OccuNet</li>
                         <li>Horizon Blue Cross and Blue Shield</li>
-                        <li>Partners Direct</li>
-                        <li>Prime Health</li>
                         <li>Quest Behavioral Health</li>
-                        <li>Unity</li>
-                        <li>Velocity</li>
                       </ul>
                     </div>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Availability</h3>
-                    <p>I am available for video sessions on weekday evenings.</p>
-                    <p className="mt-2">I see insured clients through Headway or Sondermind and self-pay via Doxy!</p>
+                    <p>I am available for video sessions.</p>
+                    <p className="mt-2">I see insured clients through Headway!</p>
                   </div>
                 </div>
               )}
@@ -318,17 +305,6 @@ export default function Home() {
                           className="flex items-center gap-2 text-base text-dark-green-text opacity-90 hover:opacity-100 transition-all duration-200 hover:translate-x-1"
                         >
                           <span className="font-medium">Headway Profile</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                        <a
-                          href="https://www.sondermind.com/providers/ivjf6zga/elora-silver"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-base text-dark-green-text opacity-90 hover:opacity-100 transition-all duration-200 hover:translate-x-1"
-                        >
-                          <span className="font-medium">Sondermind Profile</span>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                           </svg>
