@@ -326,12 +326,7 @@ export default function Home() {
           className="inline-flex items-center justify-center w-12 h-12 bg-transparent hover:bg-gray-200/20 text-transparent hover:text-gray-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 opacity-0 hover:opacity-60"
           title="Secret Page"
         >
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2"/>
-            <circle cx="9" cy="9.5" r="1.5"/>
-            <circle cx="15" cy="9.5" r="1.5"/>
-            <path d="M8 17c1.5-2 2.5-3 4-3s2.5 1 4 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
+          <span className="text-2xl">☹️</span>
         </Link>
       </div>
     </main>
