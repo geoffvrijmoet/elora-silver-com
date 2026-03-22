@@ -166,7 +166,9 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
   DEPLOY_READY=false
   for i in $(seq 1 30); do
     HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PREVIEW_URL")
-    if [ "$HTTP_STATUS" = "200" ]; then
+    # Accept 200 (OK) or 401 (Vercel auth on previews) — both mean deployed
+    # 404/502/503 mean still building
+    if [ "$HTTP_STATUS" = "200" ] || [ "$HTTP_STATUS" = "401" ]; then
       DEPLOY_READY=true
       break
     fi
