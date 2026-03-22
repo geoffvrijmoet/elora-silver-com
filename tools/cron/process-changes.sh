@@ -158,12 +158,30 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
   SANITIZED_BRANCH=$(echo "$BRANCH" | tr '/' '-')
   PREVIEW_URL="https://elora-silver-com-git-${SANITIZED_BRANCH}-geoff-vrijmoets-projects.vercel.app"
 
-  # Update MongoDB
+  # Wait for Vercel deployment to be ready (up to 5 minutes)
+  echo "Waiting for Vercel deployment..." > "$PROGRESS_FILE"
+  DEPLOY_READY=false
+  for i in $(seq 1 30); do
+    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PREVIEW_URL")
+    if [ "$HTTP_STATUS" = "200" ]; then
+      DEPLOY_READY=true
+      break
+    fi
+    sleep 10
+  done
+
+  if [ "$DEPLOY_READY" = false ]; then
+    echo "Warning: Vercel deployment not ready after 5 minutes, sending URL anyway" >> "$LOG_DIR/process-changes-${TODAY}.log"
+  fi
+
+  # Update MongoDB - include preview URL in the message itself
   $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "preview_ready" \
     --preview-url "$PREVIEW_URL" \
     --branch "$BRANCH" \
     --summary "$SUMMARY" \
-    --system-message "Changes are ready for review."
+    --system-message "${SUMMARY}
+
+Preview: ${PREVIEW_URL}"
 
   # Send email
   $NODE "$HELPERS_DIR/send-email.js" \

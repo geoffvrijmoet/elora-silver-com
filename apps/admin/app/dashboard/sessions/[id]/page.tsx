@@ -5,6 +5,26 @@ import { useParams, useRouter } from 'next/navigation';
 import { STATUS_LABELS, STATUS_COLORS, type ChangeSession } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
+function linkify(text: string) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) =>
+    urlRegex.test(part) ? (
+      <a
+        key={i}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline break-all"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function SessionDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -82,29 +102,6 @@ export default function SessionDetailPage() {
         </span>
       </div>
 
-      {/* Change summary */}
-      {session.changeSummary && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-          <h3 className="text-sm font-semibold text-blue-900 mb-1">Change Summary</h3>
-          <p className="text-sm text-blue-800">{session.changeSummary}</p>
-        </div>
-      )}
-
-      {/* Preview link */}
-      {session.previewUrl && session.status === 'preview_ready' && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
-          <h3 className="text-sm font-semibold text-green-900 mb-2">Preview Available</h3>
-          <a
-            href={session.previewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-sm text-green-700 hover:text-green-900 font-medium underline"
-          >
-            View Preview &rarr;
-          </a>
-        </div>
-      )}
-
       {/* Deployed confirmation */}
       {session.status === 'deployed' && (
         <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6">
@@ -136,7 +133,7 @@ export default function SessionDetailPage() {
                   : 'bg-white border text-gray-900'
               }`}
             >
-              <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+              <p className="text-sm whitespace-pre-wrap">{linkify(msg.content)}</p>
               <p
                 className={`text-xs mt-1 ${
                   msg.role === 'elora' ? 'text-gray-400' : 'text-gray-500'
