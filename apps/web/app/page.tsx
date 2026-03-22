@@ -319,9 +319,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Smiley Face - Bottom Left */}
-      <div className="fixed bottom-4 left-4 text-3xl select-none" title="😊">
-        😊
+      {/* Umbrella - Bottom Left */}
+      <div className="fixed bottom-4 left-4 text-3xl select-none" title="☂️">
+        ☂️
       </div>
 
       {/* Secret Smiley Button */}
