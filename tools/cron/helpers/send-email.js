@@ -26,8 +26,13 @@ async function main() {
     body: JSON.stringify({
       from: 'Website Updates <contact@elorasilver.com>',
       to: 'info@elorasilver.com',
+      cc: 'geofferyv@gmail.com',
+      reply_to: 'noreply@elorasilver.com',
       subject,
-      html: bodyText.replace(/\n/g, '<br>'),
+      html: bodyText.replace(/\n/g, '<br>') +
+        '<br><br><hr style="border:none;border-top:1px solid #ddd;margin:16px 0">' +
+        '<p style="color:#888;font-size:12px;">This is an automated message. Please do not reply to this email — replies are not monitored. ' +
+        'To request changes or approve updates, visit your <a href="https://admin.elorasilver.com/dashboard">admin dashboard</a>.</p>',
     }),
   });
 
