@@ -15,9 +15,12 @@ NOW=$(date +%Y-%m-%dT%H:%M:%S)
 STATUS_FILE="$LOG_DIR/.status-process-changes"
 PROGRESS_FILE="$LOG_DIR/.progress-process-changes"
 
-# Load env vars
-source "$PROJECT_DIR/apps/admin/.env.local" 2>/dev/null
-export MONGODB_URI RESEND_API_KEY
+# Load env vars from .env.local (parse key=value lines, skip comments)
+while IFS='=' read -r key value; do
+  [[ "$key" =~ ^#.*$ || -z "$key" ]] && continue
+  key=$(echo "$key" | xargs)
+  export "$key"="$value"
+done < "$PROJECT_DIR/apps/admin/.env.local"
 
 mkdir -p "$LOG_DIR"
 
