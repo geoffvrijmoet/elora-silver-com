@@ -1,0 +1,29 @@
+QUICK REFERENCE: DNS Records for elorasilver.com
+==================================================
+
+1. SPF RECORD
+   Type: TXT
+   Name: @ (or elorasilver.com)
+   Value: v=spf1 include:spf.resend.com ~all
+
+2. DKIM RECORD
+   Type: TXT
+   Name: default._domainkey (or default._domainkey.elorasilver.com)
+   Value: [Get from Resend dashboard after adding domain]
+   
+   Steps:
+   - Go to https://resend.com/domains
+   - Add domain: elorasilver.com
+   - Copy the DKIM value provided
+   - Add as TXT record with name: default._domainkey
+
+3. DMARC RECORD
+   Type: TXT
+   Name: _dmarc (or _dmarc.elorasilver.com)
+   Value: v=DMARC1; p=none; rua=mailto:info@elorasilver.com; ruf=mailto:info@elorasilver.com; fo=1
+
+==================================================
+IMPORTANT: Get your DKIM key from Resend dashboard first!
+Then add all three records in your DNS provider.
+==================================================
+
