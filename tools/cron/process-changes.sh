@@ -45,14 +45,17 @@ touch "$LOCK"
 
 # Check MongoDB for actionable sessions
 echo "Checking..." > "$PROGRESS_FILE"
-SESSION_JSON=$($NODE "$HELPERS_DIR/check-sessions.js" 2>> "$LOG_DIR/process-changes-${TODAY}.log")
+SESSION_FILE=$(mktemp /tmp/elora-session-XXXXXX.json)
+trap "rm -f $LOCK $SESSION_FILE" EXIT
 
-if [ $? -ne 0 ] || [ -z "$SESSION_JSON" ]; then
+$NODE "$HELPERS_DIR/check-sessions.js" > "$SESSION_FILE" 2>> "$LOG_DIR/process-changes-${TODAY}.log"
+
+if [ $? -ne 0 ] || [ ! -s "$SESSION_FILE" ]; then
   echo "[$TODAY $(date +%H:%M)] process-changes: failed to check MongoDB" >> "$LOG_DIR/cron.log"
   exit 1
 fi
 
-ACTION=$(echo "$SESSION_JSON" | /usr/bin/jq -r '.action')
+ACTION=$(/usr/bin/jq -r '.action' < "$SESSION_FILE")
 
 if [ "$ACTION" = "none" ]; then
   echo "[$TODAY $(date +%H:%M)] process-changes: no actionable sessions" >> "$LOG_DIR/cron.log"
@@ -60,8 +63,8 @@ if [ "$ACTION" = "none" ]; then
   exit 0
 fi
 
-SESSION_ID=$(echo "$SESSION_JSON" | /usr/bin/jq -r '.id')
-BRANCH=$(echo "$SESSION_JSON" | /usr/bin/jq -r '.branch')
+SESSION_ID=$(/usr/bin/jq -r '.id' < "$SESSION_FILE")
+BRANCH=$(/usr/bin/jq -r '.branch' < "$SESSION_FILE")
 
 echo "{\"job\":\"process-changes\",\"status\":\"running\",\"action\":\"$ACTION\",\"sessionId\":\"$SESSION_ID\",\"startedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "$STATUS_FILE"
 echo "[$TODAY $(date +%H:%M)] process-changes: starting ($ACTION) session=$SESSION_ID" >> "$LOG_DIR/cron.log"
@@ -113,7 +116,7 @@ elif [ "$ACTION" = "feedback_pending" ]; then
 fi
 
 # Build the prompt with message history
-MESSAGES=$(echo "$SESSION_JSON" | /usr/bin/jq -r '.messages[] | "\(.role) (\(.createdAt)): \(.content)"')
+MESSAGES=$(/usr/bin/jq -r '.messages[] | "\(.role) (\(.createdAt)): \(.content)"' < "$SESSION_FILE")
 PROMPT_TEMPLATE=$(cat "$PROMPTS_DIR/website-change.md")
 FULL_PROMPT="${PROMPT_TEMPLATE//\{CHANGE_REQUEST_MESSAGES\}/$MESSAGES}"
 
