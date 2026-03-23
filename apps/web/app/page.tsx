@@ -331,6 +331,19 @@ export default function Home() {
           </svg>
         </Link>
       </div>
+
+      {/* Hidden Admin Button */}
+      <div className="fixed bottom-4 left-4">
+        <a
+          href="https://admin.elorasilver.com"
+          className="inline-flex items-center justify-center w-8 h-8 bg-transparent text-transparent hover:text-gray-400 rounded-full transition-all duration-200 opacity-0 hover:opacity-50"
+          title=""
+        >
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </a>
+      </div>
     </main>
   );
 }
