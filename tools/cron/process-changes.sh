@@ -77,10 +77,8 @@ if [ "$ACTION" = "approved" ]; then
   $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "processing" --system-message "Merging changes to production..."
 
   git checkout main && git pull origin main
-  if git merge "$BRANCH" --no-edit 2>> "$LOG_DIR/process-changes-${TODAY}.log"; then
+  if git merge preview --no-edit 2>> "$LOG_DIR/process-changes-${TODAY}.log"; then
     git push origin main 2>> "$LOG_DIR/process-changes-${TODAY}.log"
-    git branch -d "$BRANCH" 2>/dev/null
-    git push origin --delete "$BRANCH" 2>/dev/null
 
     $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "deployed" --system-message "Changes deployed to production."
     $NODE "$HELPERS_DIR/send-email.js" \
@@ -107,13 +105,12 @@ fi
 echo "Processing changes..." > "$PROGRESS_FILE"
 $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "processing" --system-message "Working on your changes..."
 
-# Set up the branch
-if [ "$ACTION" = "pending" ]; then
-  git checkout main && git pull origin main
-  git checkout -b "$BRANCH" 2>> "$LOG_DIR/process-changes-${TODAY}.log"
-elif [ "$ACTION" = "feedback_pending" ]; then
-  git checkout "$BRANCH" && git pull origin "$BRANCH" 2>/dev/null
-fi
+# Always use the preview branch
+BRANCH="preview"
+git checkout main && git pull origin main
+# Reset preview branch to current main, then apply changes on top
+git branch -D preview 2>/dev/null
+git checkout -b preview 2>> "$LOG_DIR/process-changes-${TODAY}.log"
 
 # Build the prompt with message history
 MESSAGES=$(/usr/bin/jq -r '.messages[] | "\(.role) (\(.createdAt)): \(.content)"' < "$SESSION_FILE")
@@ -155,20 +152,18 @@ $SUMMARY
 
 Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
 
-  git push -u origin "$BRANCH" 2>> "$LOG_DIR/process-changes-${TODAY}.log"
+  git push -u origin preview --force 2>> "$LOG_DIR/process-changes-${TODAY}.log"
 
-  # Construct the Vercel preview URL
-  SANITIZED_BRANCH=$(echo "$BRANCH" | tr '/' '-')
-  PREVIEW_URL="https://elora-silver-com-git-${SANITIZED_BRANCH}-geoff-vrijmoets-projects.vercel.app"
+  # Preview URL via custom domain
+  PREVIEW_URL="https://preview.elorasilver.com"
 
   # Wait for Vercel deployment to be ready (up to 5 minutes)
   echo "Waiting for Vercel deployment..." > "$PROGRESS_FILE"
   DEPLOY_READY=false
   for i in $(seq 1 30); do
     HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PREVIEW_URL")
-    # Accept 200 (OK) or 401 (Vercel auth on previews) — both mean deployed
-    # 404/502/503 mean still building
-    if [ "$HTTP_STATUS" = "200" ] || [ "$HTTP_STATUS" = "401" ]; then
+    # 200 means deployed, 404/502/503 mean still building
+    if [ "$HTTP_STATUS" = "200" ]; then
       DEPLOY_READY=true
       break
     fi
