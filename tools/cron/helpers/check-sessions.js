@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// Checks MongoDB for actionable change sessions.
-// Outputs JSON to stdout: { action, id, branch, messages } or { action: "none" }
+// Checks MongoDB chatState for actionable work.
+// Outputs JSON to stdout: { action, id, messages } or { action: "none" }
 
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -16,29 +16,29 @@ async function main() {
     await client.connect();
     const db = client.db('elora-silver');
 
-    const session = await db.collection('changeSessions').findOne(
-      { status: { $in: ['pending', 'feedback_pending', 'approved'] } },
-      { sort: { updatedAt: 1 } }
-    );
+    const chat = await db.collection('chatState').findOne({});
 
-    if (!session) {
+    if (!chat || !['pending', 'approved'].includes(chat.status)) {
       console.log(JSON.stringify({ action: 'none' }));
       return;
     }
 
-    const id = session._id.toString();
-    const shortId = id.slice(-8);
+    const id = chat._id.toString();
+
+    // Only send messages from the active change cycle, not the full history
+    const relevantMessages = chat.activeMessageIndex != null
+      ? chat.messages.slice(chat.activeMessageIndex)
+      : chat.messages;
 
     console.log(JSON.stringify({
-      action: session.status,
+      action: chat.status,
       id,
-      branch: session.previewBranch || `change/${shortId}`,
-      messages: session.messages.map(m => ({
+      messages: relevantMessages.map(m => ({
         role: m.role,
         content: m.content,
         createdAt: m.createdAt,
       })),
-      changeSummary: session.changeSummary || null,
+      changeSummary: chat.changeSummary || null,
     }));
   } finally {
     await client.close();

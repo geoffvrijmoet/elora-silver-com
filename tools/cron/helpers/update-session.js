@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Updates a change session in MongoDB.
+// Updates the chatState document in MongoDB.
 // Usage: node update-session.js <id> <status> [--preview-url URL] [--branch NAME] [--summary TEXT] [--system-message TEXT]
 
 const { MongoClient, ObjectId } = require('mongodb');
@@ -37,9 +37,12 @@ async function main() {
     await client.connect();
     const db = client.db('elora-silver');
 
+    // If deploying is complete, reset to idle
+    const finalStatus = opts.status === 'deployed' ? 'idle' : opts.status;
+
     const update = {
       $set: {
-        status: opts.status,
+        status: finalStatus,
         updatedAt: new Date(),
       },
     };
@@ -47,6 +50,14 @@ async function main() {
     if (opts.previewUrl) update.$set.previewUrl = opts.previewUrl;
     if (opts.branch) update.$set.previewBranch = opts.branch;
     if (opts.summary) update.$set.changeSummary = opts.summary;
+
+    // Clear preview fields when deploying to production
+    if (opts.status === 'deployed') {
+      update.$set.previewUrl = null;
+      update.$set.previewBranch = null;
+      update.$set.changeSummary = null;
+      update.$set.activeMessageIndex = null;
+    }
 
     if (opts.systemMessage) {
       update.$push = {
@@ -58,7 +69,7 @@ async function main() {
       };
     }
 
-    await db.collection('changeSessions').updateOne(
+    await db.collection('chatState').updateOne(
       { _id: new ObjectId(opts.id) },
       update
     );

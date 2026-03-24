@@ -83,7 +83,7 @@ if [ "$ACTION" = "approved" ]; then
     $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "deployed" --system-message "Changes deployed to production."
     $NODE "$HELPERS_DIR/send-email.js" \
       "Your Website Changes Are Live!" \
-      "Hi Elora,\n\nThe changes you approved have been deployed to your website.\nThey're now live at https://elorasilver.com\n\nYou can see the details at https://admin.elorasilver.com/dashboard/sessions/$SESSION_ID"
+      "Hi Elora,\n\nThe changes you approved have been deployed to your website.\nThey're now live at https://elorasilver.com\n\nVisit your dashboard: https://admin.elorasilver.com/dashboard"
 
     echo "{\"job\":\"process-changes\",\"status\":\"completed\",\"action\":\"deployed\",\"completedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "$STATUS_FILE"
     echo "Done." > "$PROGRESS_FILE"
@@ -186,7 +186,7 @@ Preview: ${PREVIEW_URL}"
   # Send email
   $NODE "$HELPERS_DIR/send-email.js" \
     "Website Update Ready for Review" \
-    "Hi Elora,\n\nI've made the changes you requested to your website. Here's a summary:\n\n${SUMMARY}\n\nYou can preview the changes here:\n${PREVIEW_URL}\n\nWhen you're ready, visit your admin dashboard to approve the changes or request adjustments:\nhttps://admin.elorasilver.com/dashboard/sessions/$SESSION_ID"
+    "Hi Elora,\n\nI've made the changes you requested to your website. Here's a summary:\n\n${SUMMARY}\n\nYou can preview the changes here:\n${PREVIEW_URL}\n\nWhen you're ready, visit your admin dashboard to approve the changes or request adjustments:\nhttps://admin.elorasilver.com/dashboard"
 
   echo "{\"job\":\"process-changes\",\"status\":\"completed\",\"action\":\"preview_ready\",\"completedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "$STATUS_FILE"
   echo "Done." > "$PROGRESS_FILE"
