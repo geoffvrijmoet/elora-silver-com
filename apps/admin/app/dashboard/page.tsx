@@ -32,6 +32,11 @@ export default function DashboardPage() {
   const [submitting, setSubmitting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const autoResize = (el: HTMLTextAreaElement) => {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  };
+
   const fetchChat = async () => {
     const res = await fetch('/api/chat');
     if (res.ok) {
@@ -174,9 +179,9 @@ export default function DashboardPage() {
             <div className="flex gap-2">
               <textarea
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => { setMessage(e.target.value); autoResize(e.target); }}
                 rows={2}
-                className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none overflow-hidden"
                 placeholder="Describe a change you'd like to make..."
               />
               <button
@@ -205,9 +210,9 @@ export default function DashboardPage() {
               <div className="flex gap-2">
                 <textarea
                   value={feedback}
-                  onChange={(e) => setFeedback(e.target.value)}
+                  onChange={(e) => { setFeedback(e.target.value); autoResize(e.target); }}
                   rows={2}
-                  className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                  className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none overflow-hidden"
                   placeholder="Or describe what you'd like changed..."
                 />
                 <button
