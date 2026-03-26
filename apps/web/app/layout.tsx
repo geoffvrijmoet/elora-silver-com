@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rethink_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
+import Tracker from "@/components/tracker";
 
 const rethinkSans = Rethink_Sans({ 
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={rethinkSans.className}>
+        <Tracker />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
