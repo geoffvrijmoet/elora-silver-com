@@ -114,7 +114,7 @@ export default function DashboardPage() {
 
   const status = chat?.status || 'idle';
   const messages = chat?.messages || [];
-  const canSendMessage = status === 'idle' || status === 'failed';
+  const canSendMessage = status === 'idle' || status === 'failed' || status === 'pending';
 
   return (
     <div className="flex flex-col" style={{ minHeight: 'calc(100vh - 80px)' }}>
@@ -171,6 +171,11 @@ export default function DashboardPage() {
       <div className="sticky bottom-0 bg-gray-50 pt-4 pb-2">
         {canSendMessage && (
           <form onSubmit={handleSendMessage}>
+            {status === 'pending' && (
+              <p className="text-xs text-blue-600 mb-2">
+                Queued — will be picked up shortly. You can keep adding more details.
+              </p>
+            )}
             {status === 'failed' && (
               <p className="text-xs text-red-600 mb-2">
                 Something went wrong. You can try again or send a different request.
@@ -227,10 +232,9 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {(status === 'pending' || status === 'processing' || status === 'approved' || status === 'deploying') && (
+        {(status === 'processing' || status === 'approved' || status === 'deploying') && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-center">
             <p className="text-sm text-blue-800">
-              {status === 'pending' && 'Your request is queued and will be picked up shortly.'}
               {status === 'processing' && 'Working on your changes... This usually takes 10-20 minutes.'}
               {status === 'approved' && 'Deployment approved. Merging to production...'}
               {status === 'deploying' && 'Deploying to production...'}
