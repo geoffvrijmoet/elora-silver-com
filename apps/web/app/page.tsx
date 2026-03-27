@@ -133,7 +133,7 @@ export default function Home() {
                       <div>
                         <h3 className="font-semibold mb-2">Specialized Support</h3>
                         <ul className="list-disc list-inside space-y-1 ml-2">
-                          <li>Trauma & PTSD</li>
+                          <li>Trauma and PTSD</li>
                           <li>Domestic Abuse & Domestic Violence</li>
                           <li>Disabilities, Chronic Illness & Chronic Pain</li>
                           <li>Healthy Relationships</li>
