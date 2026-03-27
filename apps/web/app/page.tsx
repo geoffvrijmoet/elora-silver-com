@@ -178,20 +178,11 @@ export default function Home() {
                     <h3 className="font-semibold mb-2">Accepted Insurance</h3>
                     <p className="mb-2 italic" style={{ fontSize: '15px' }}>Please note that I am unable to bill through insurance for clients based in Vermont.</p>
                     <p className="mb-2">Insurance is verified through Headway. Accepted plans include:</p>
-                    <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                      <ul className="list-disc list-inside space-y-1 ml-2 flex-1">
-                        <li>Aetna</li>
-                        <li>Anthem Blue Cross Blue Shield</li>
-                        <li>Anthem EAP</li>
-                        <li>Carelon Behavioral Health</li>
-                        <li>Cigna and Evernorth</li>
-                        <li>Empire Blue Cross Blue Shield</li>
-                      </ul>
-                      <ul className="list-disc list-inside space-y-1 ml-2 flex-1">
-                        <li>Horizon Blue Cross and Blue Shield</li>
-                        <li>Quest Behavioral Health</li>
-                      </ul>
-                    </div>
+                    <ul className="list-disc list-inside space-y-1 ml-2">
+                      <li>Aetna</li>
+                      <li>Blue Cross Blue Shield of Massachusetts</li>
+                      <li>Quest Behavioral Health</li>
+                    </ul>
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2">Availability</h3>
