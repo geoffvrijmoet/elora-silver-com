@@ -82,6 +82,11 @@ if [ "$ACTION" = "approved" ]; then
   if git merge preview --no-edit 2>> "$LOG_DIR/process-changes-${TODAY}.log"; then
     git push origin main 2>> "$LOG_DIR/process-changes-${TODAY}.log"
 
+    # Wait for production deployment to be ready
+    echo "Waiting for production deployment..." > "$PROGRESS_FILE"
+    PROD_SHA=$(git rev-parse HEAD)
+    $NODE "$HELPERS_DIR/wait-for-deploy.js" "$PROD_SHA" "$VERCEL_WEB_PROJECT_ID" --timeout 300 >> "$LOG_DIR/process-changes-${TODAY}.log" 2>&1 || echo "Warning: production deployment wait timed out" >> "$LOG_DIR/process-changes-${TODAY}.log"
+
     $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "deployed" --system-message "Changes deployed to production."
     $NODE "$HELPERS_DIR/send-email.js" \
       "Your Website Changes Are Live!" \
@@ -182,22 +187,10 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
   # Preview URL via custom domain
   PREVIEW_URL="https://preview.elorasilver.com"
 
-  # Wait for Vercel deployment to be ready (up to 5 minutes)
+  # Wait for Vercel deployment to be ready
   echo "Waiting for Vercel deployment..." > "$PROGRESS_FILE"
-  DEPLOY_READY=false
-  for i in $(seq 1 30); do
-    HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$PREVIEW_URL")
-    # 200 means deployed, 404/502/503 mean still building
-    if [ "$HTTP_STATUS" = "200" ]; then
-      DEPLOY_READY=true
-      break
-    fi
-    sleep 10
-  done
-
-  if [ "$DEPLOY_READY" = false ]; then
-    echo "Warning: Vercel deployment not ready after 5 minutes, sending URL anyway" >> "$LOG_DIR/process-changes-${TODAY}.log"
-  fi
+  COMMIT_SHA=$(git rev-parse HEAD)
+  $NODE "$HELPERS_DIR/wait-for-deploy.js" "$COMMIT_SHA" "$VERCEL_WEB_PROJECT_ID" --timeout 300 >> "$LOG_DIR/process-changes-${TODAY}.log" 2>&1 || echo "Warning: deployment wait timed out" >> "$LOG_DIR/process-changes-${TODAY}.log"
 
   # Update MongoDB - include preview URL in the message itself
   $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "preview_ready" \
