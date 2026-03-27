@@ -9,6 +9,12 @@ interface AnalyticsData {
   topReferrers: Array<{ referrer: string; count: number }>;
   deviceBreakdown: Array<{ device: string; count: number }>;
   dailyChart: Array<{ date: string; views: number; visitors: number }>;
+  qrScans: {
+    today: number;
+    week: number;
+    month: number;
+    topCodes: Array<{ name: string; scans: number }>;
+  };
 }
 
 function StatCard({ label, value }: { label: string; value: number }) {
@@ -122,6 +128,35 @@ export default function AnalyticsPage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* QR Code Scans */}
+      <div className="bg-white border rounded-xl p-4 mt-4">
+        <h3 className="text-sm font-semibold text-gray-900 mb-3">QR Code Scans</h3>
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div>
+            <p className="text-xs text-gray-500">Today</p>
+            <p className="text-lg font-bold">{data.qrScans.today}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500">This Week</p>
+            <p className="text-lg font-bold">{data.qrScans.week}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500">This Month</p>
+            <p className="text-lg font-bold">{data.qrScans.month}</p>
+          </div>
+        </div>
+        {data.qrScans.topCodes.length > 0 && (
+          <div className="space-y-2">
+            {data.qrScans.topCodes.map(q => (
+              <div key={q.name} className="flex items-center justify-between">
+                <span className="text-sm text-gray-700">{q.name}</span>
+                <span className="text-xs text-gray-500">{q.scans} scans</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

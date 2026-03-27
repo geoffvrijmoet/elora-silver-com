@@ -73,6 +73,14 @@ export async function GET() {
     ]).toArray(),
   ]);
 
+  // QR scan stats
+  const [qrScansToday, qrScansWeek, qrScansMonth, qrTopCodes] = await Promise.all([
+    db.collection('qrScans').countDocuments({ timestamp: { $gte: todayStart } }),
+    db.collection('qrScans').countDocuments({ timestamp: { $gte: weekStart } }),
+    db.collection('qrScans').countDocuments({ timestamp: { $gte: monthStart } }),
+    db.collection('qrCodes').find({}).sort({ scanCount: -1 }).limit(10).toArray(),
+  ]);
+
   return NextResponse.json({
     today: { views: todayViews, visitors: todayVisitors },
     week: { views: weekViews, visitors: weekVisitors },
@@ -80,5 +88,11 @@ export async function GET() {
     topReferrers: topReferrers.map(r => ({ referrer: r._id, count: r.count })),
     deviceBreakdown: deviceBreakdown.map(d => ({ device: d._id, count: d.count })),
     dailyChart: dailyChart.map(d => ({ date: d.date, views: d.views, visitors: d.visitors })),
+    qrScans: {
+      today: qrScansToday,
+      week: qrScansWeek,
+      month: qrScansMonth,
+      topCodes: qrTopCodes.map(q => ({ name: q.name, scans: q.scanCount })),
+    },
   });
 }
