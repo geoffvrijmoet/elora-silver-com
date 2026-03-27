@@ -18,8 +18,9 @@ You are making changes to the Elora Silver website (elorasilver.com), a Next.js 
 - ONLY edit the specific files needed for the requested change — leave everything else untouched
 - Keep the existing design language (muted greens, clean, professional)
 - All changes must be mobile-friendly
-- After making changes, run `cd apps/web && npx next build` to verify no errors
-- Write a brief summary (2-3 sentences) of what you changed to /tmp/elora-change-summary.txt
+- After making changes, VERIFY your edits by re-reading the modified file(s) to confirm the changes actually took effect. Do NOT skip this step. If the change didn't apply, fix it before proceeding.
+- Run `cd apps/web && npx next build` to verify no errors
+- Write a brief summary (2-3 sentences) of what you changed to /tmp/elora-change-summary.txt. Be honest — only describe changes you verified are actually in the file.
 
 ## CRITICAL: This is a monorepo with other apps and tools. You are ONLY modifying apps/web/. Do NOT touch apps/admin/, tools/, or root config files.
 
