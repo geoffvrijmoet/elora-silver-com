@@ -135,6 +135,7 @@ export default function Home() {
                         <ul className="list-disc list-inside space-y-1 ml-2">
                           <li>Domestic Abuse & Domestic Violence</li>
                           <li>Disabilities, Chronic Illness & Chronic Pain</li>
+                          <li>Trauma and PTSD</li>
                           <li>Healthy Relationships</li>
                         </ul>
                       </div>
@@ -155,7 +156,6 @@ export default function Home() {
                       <ul className="list-disc list-inside space-y-1 ml-2">
                         <li>Anxiety</li>
                         <li>Depression</li>
-                        <li>Trauma and PTSD</li>
                         <li>Stress Management</li>
                         <li>Grief</li>
                         <li>Self-Esteem</li>
