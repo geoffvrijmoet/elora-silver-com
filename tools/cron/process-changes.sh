@@ -108,10 +108,14 @@ $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "processing" --system-messa
 
 # Always use the preview branch
 BRANCH="preview"
-git checkout main && git pull origin main
-# Reset preview branch to current main, then apply changes on top
+git checkout main 2>/dev/null
+git reset --hard origin/main 2>/dev/null
+git pull origin main
+# Force-create preview branch from latest main
 git branch -D preview 2>/dev/null
+git push origin --delete preview 2>/dev/null
 git checkout -b preview 2>> "$LOG_DIR/process-changes-${TODAY}.log"
+echo "Preview branch created from main at $(git rev-parse HEAD)" >> "$LOG_DIR/process-changes-${TODAY}.log"
 
 # Build the prompt with message history
 MESSAGES=$(/usr/bin/jq -r '.messages[] | "\(.role) (\(.createdAt)): \(.content)"' < "$SESSION_FILE")
@@ -146,7 +150,7 @@ if $CLAUDE -p "$FULL_PROMPT" \
 
   # Commit and push
   echo "Pushing changes..." > "$PROGRESS_FILE"
-  git add -A
+  git add apps/web/
   git commit -m "feat: website changes for session $SESSION_ID
 
 $SUMMARY
