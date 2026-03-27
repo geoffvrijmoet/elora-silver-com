@@ -66,6 +66,7 @@ fi
 SESSION_ID=$(/usr/bin/jq -r '.id' < "$SESSION_FILE")
 BRANCH=$(/usr/bin/jq -r '.branch' < "$SESSION_FILE")
 MSG_COUNT=$(/usr/bin/jq -r '.totalMessageCount' < "$SESSION_FILE")
+HAS_ACTIVE_PREVIEW=$(/usr/bin/jq -r '.hasActivePreview' < "$SESSION_FILE")
 
 echo "{\"job\":\"process-changes\",\"status\":\"running\",\"action\":\"$ACTION\",\"sessionId\":\"$SESSION_ID\",\"startedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "$STATUS_FILE"
 echo "[$TODAY $(date +%H:%M)] process-changes: starting ($ACTION) session=$SESSION_ID" >> "$LOG_DIR/cron.log"
@@ -108,19 +109,38 @@ $NODE "$HELPERS_DIR/update-session.js" "$SESSION_ID" "processing" --system-messa
 
 # Always use the preview branch
 BRANCH="preview"
-git checkout main 2>/dev/null
-git reset --hard origin/main 2>/dev/null
-git pull origin main
-# Force-create preview branch from latest main
-git branch -D preview 2>/dev/null
-git push origin --delete preview 2>/dev/null
-git checkout -b preview 2>> "$LOG_DIR/process-changes-${TODAY}.log"
-echo "Preview branch created from main at $(git rev-parse HEAD)" >> "$LOG_DIR/process-changes-${TODAY}.log"
+
+if [ "$HAS_ACTIVE_PREVIEW" = "true" ]; then
+  # Build on top of existing preview (Elora sent more feedback on an active preview)
+  echo "Building on existing preview branch" >> "$LOG_DIR/process-changes-${TODAY}.log"
+  git fetch origin
+  git checkout preview 2>/dev/null || git checkout -b preview origin/preview 2>/dev/null
+  git pull origin preview 2>/dev/null
+  echo "Preview branch at $(git rev-parse HEAD)" >> "$LOG_DIR/process-changes-${TODAY}.log"
+else
+  # Fresh start from latest main
+  echo "Creating fresh preview from main" >> "$LOG_DIR/process-changes-${TODAY}.log"
+  git checkout main 2>/dev/null
+  git reset --hard origin/main 2>/dev/null
+  git pull origin main
+  git branch -D preview 2>/dev/null
+  git push origin --delete preview 2>/dev/null
+  git checkout -b preview 2>> "$LOG_DIR/process-changes-${TODAY}.log"
+  echo "Preview branch created from main at $(git rev-parse HEAD)" >> "$LOG_DIR/process-changes-${TODAY}.log"
+fi
 
 # Build the prompt with message history
 MESSAGES=$(/usr/bin/jq -r '.messages[] | "\(.role) (\(.createdAt)): \(.content)"' < "$SESSION_FILE")
 PROMPT_TEMPLATE=$(cat "$PROMPTS_DIR/website-change.md")
 FULL_PROMPT="${PROMPT_TEMPLATE//\{CHANGE_REQUEST_MESSAGES\}/$MESSAGES}"
+
+# Add context about existing preview changes
+if [ "$HAS_ACTIVE_PREVIEW" = "true" ]; then
+  FULL_PROMPT="$FULL_PROMPT
+
+## IMPORTANT CONTEXT
+This branch already has previous changes from earlier feedback. You are adding MORE changes on top of what's already been done. Do NOT undo or revert the previous changes — only add to them. Read the current state of the files before making edits."
+fi
 
 # Clean up any previous summary
 rm -f /tmp/elora-change-summary.txt

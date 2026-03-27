@@ -46,6 +46,7 @@ async function main() {
       action: chat.status,
       id,
       totalMessageCount: chat.messages.length,
+      hasActivePreview: !!chat.previewUrl,
       messages: relevantMessages.map(m => ({
         role: m.role,
         content: m.content,
