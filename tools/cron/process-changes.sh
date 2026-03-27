@@ -148,7 +148,7 @@ rm -f /tmp/elora-change-summary.txt
 # Run Claude
 echo "Running Claude..." > "$PROGRESS_FILE"
 if $CLAUDE -p "$FULL_PROMPT" \
-  --model claude-opus-4-6 \
+  --model claude-sonnet-4-6 \
   --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
   --max-turns 50 \
   >> "$LOG_DIR/process-changes-${TODAY}.log" 2>&1; then
