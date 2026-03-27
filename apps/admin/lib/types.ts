@@ -23,6 +23,7 @@ export interface ChatState {
   previewBranch?: string;
   changeSummary?: string;
   activeMessageIndex?: number;
+  addressedUpTo?: number;
   updatedAt: Date;
 }
 

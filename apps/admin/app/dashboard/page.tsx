@@ -114,7 +114,8 @@ export default function DashboardPage() {
 
   const status = chat?.status || 'idle';
   const messages = chat?.messages || [];
-  const canSendMessage = status === 'idle' || status === 'failed' || status === 'pending';
+  const addressedUpTo = chat?.addressedUpTo || 0;
+  const canSendMessage = status === 'idle' || status === 'failed' || status === 'pending' || status === 'processing';
 
   return (
     <div className="flex flex-col" style={{ minHeight: 'calc(100vh - 80px)' }}>
@@ -142,7 +143,9 @@ export default function DashboardPage() {
             Send a message to request a change to your website.
           </div>
         )}
-        {messages.map((msg, i) => (
+        {messages.map((msg, i) => {
+          const isAddressed = msg.role === 'elora' && i < addressedUpTo;
+          return (
           <div
             key={i}
             className={`flex ${msg.role === 'elora' ? 'justify-end' : 'justify-start'}`}
@@ -150,21 +153,25 @@ export default function DashboardPage() {
             <div
               className={`max-w-[80%] rounded-xl px-4 py-3 ${
                 msg.role === 'elora'
-                  ? 'bg-gray-900 text-white'
+                  ? isAddressed
+                    ? 'bg-gray-900 text-white border-2 border-green-500'
+                    : 'bg-gray-900 text-white'
                   : 'bg-white border text-gray-900'
               }`}
             >
               <p className="text-sm whitespace-pre-wrap">{linkify(msg.content)}</p>
-              <p
-                className={`text-xs mt-1 ${
+              <div className={`flex items-center gap-1 text-xs mt-1 ${
                   msg.role === 'elora' ? 'text-gray-400' : 'text-gray-500'
-                }`}
-              >
-                {formatDate(msg.createdAt)}
-              </p>
+                }`}>
+                <span>{formatDate(msg.createdAt)}</span>
+                {isAddressed && (
+                  <span className="text-green-400 ml-1" title="Addressed">&#10003;</span>
+                )}
+              </div>
             </div>
           </div>
-        ))}
+          );
+        })}
         <div ref={messagesEndRef} />
       </div>
 
@@ -174,6 +181,11 @@ export default function DashboardPage() {
             {status === 'pending' && (
               <p className="text-xs text-blue-600 mb-2">
                 Queued — will be picked up shortly. You can keep adding more details.
+              </p>
+            )}
+            {status === 'processing' && (
+              <p className="text-xs text-blue-600 mb-2">
+                Working on your earlier messages. You can queue more changes for the next round.
               </p>
             )}
             {status === 'failed' && (
@@ -232,10 +244,9 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {(status === 'processing' || status === 'approved' || status === 'deploying') && (
+        {(status === 'approved' || status === 'deploying') && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-center">
             <p className="text-sm text-blue-800">
-              {status === 'processing' && 'Working on your changes... This usually takes 10-20 minutes.'}
               {status === 'approved' && 'Deployment approved. Merging to production...'}
               {status === 'deploying' && 'Deploying to production...'}
             </p>

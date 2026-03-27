@@ -20,6 +20,7 @@ function parseArgs() {
       case '--branch': result.branch = args[i + 1]; break;
       case '--summary': result.summary = args[i + 1]; break;
       case '--system-message': result.systemMessage = args[i + 1]; break;
+      case '--addressed-up-to': result.addressedUpTo = parseInt(args[i + 1], 10); break;
     }
   }
   return result;
@@ -50,6 +51,7 @@ async function main() {
     if (opts.previewUrl) update.$set.previewUrl = opts.previewUrl;
     if (opts.branch) update.$set.previewBranch = opts.branch;
     if (opts.summary) update.$set.changeSummary = opts.summary;
+    if (opts.addressedUpTo != null) update.$set.addressedUpTo = opts.addressedUpTo;
 
     // Clear preview fields when deploying to production
     if (opts.status === 'deployed') {

@@ -30,11 +30,11 @@ export async function POST(req: NextRequest) {
   const now = new Date();
   const chat = await db.collection('chatState').findOne({});
 
-  // Allow posting when idle, failed, or pending (adding more to the batch)
-  const canPost = !chat || chat.status === 'idle' || chat.status === 'failed' || chat.status === 'pending';
-  if (!canPost) {
+  // Allow posting when idle, failed, pending, or processing (queue more while working)
+  const blockedStatuses = ['preview_ready', 'approved', 'deploying'];
+  if (chat && blockedStatuses.includes(chat.status)) {
     return NextResponse.json(
-      { error: 'Changes are being processed. You can add more messages once the current cycle completes.' },
+      { error: 'Please review the preview or wait for deployment to complete before sending new messages.' },
       { status: 409 }
     );
   }
@@ -56,12 +56,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(created, { status: 201 });
   }
 
-  // If already pending, just append — keep the existing activeMessageIndex
+  // If pending or processing, just append — don't change status or activeMessageIndex
   const updateSet: Record<string, unknown> = {
-    status: 'pending',
     updatedAt: now,
   };
-  if (chat.status !== 'pending') {
+  if (chat.status === 'idle' || chat.status === 'failed') {
+    updateSet.status = 'pending';
     updateSet.activeMessageIndex = chat.messages.length;
   }
 

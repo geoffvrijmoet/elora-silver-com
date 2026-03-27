@@ -33,6 +33,7 @@ async function main() {
     console.log(JSON.stringify({
       action: chat.status,
       id,
+      totalMessageCount: chat.messages.length,
       messages: relevantMessages.map(m => ({
         role: m.role,
         content: m.content,

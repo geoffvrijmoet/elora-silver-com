@@ -65,6 +65,7 @@ fi
 
 SESSION_ID=$(/usr/bin/jq -r '.id' < "$SESSION_FILE")
 BRANCH=$(/usr/bin/jq -r '.branch' < "$SESSION_FILE")
+MSG_COUNT=$(/usr/bin/jq -r '.totalMessageCount' < "$SESSION_FILE")
 
 echo "{\"job\":\"process-changes\",\"status\":\"running\",\"action\":\"$ACTION\",\"sessionId\":\"$SESSION_ID\",\"startedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" > "$STATUS_FILE"
 echo "[$TODAY $(date +%H:%M)] process-changes: starting ($ACTION) session=$SESSION_ID" >> "$LOG_DIR/cron.log"
@@ -179,6 +180,7 @@ Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>"
     --preview-url "$PREVIEW_URL" \
     --branch "$BRANCH" \
     --summary "$SUMMARY" \
+    --addressed-up-to "$MSG_COUNT" \
     --system-message "${SUMMARY}
 
 Preview: ${PREVIEW_URL}"
