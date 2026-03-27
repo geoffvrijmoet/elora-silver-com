@@ -19,8 +19,20 @@ async function main() {
     const chat = await db.collection('chatState').findOne({});
 
     if (!chat || !['pending', 'approved'].includes(chat.status)) {
-      console.log(JSON.stringify({ action: 'none' }));
-      return;
+      // Also pick up failed sessions that have new unaddressed elora messages
+      if (chat && chat.status === 'failed') {
+        const addressedUpTo = chat.addressedUpTo || 0;
+        const hasNewMessages = chat.messages.some((m, i) => i >= addressedUpTo && m.role === 'elora');
+        if (hasNewMessages) {
+          // Treat as pending — there are new messages to process
+        } else {
+          console.log(JSON.stringify({ action: 'none' }));
+          return;
+        }
+      } else {
+        console.log(JSON.stringify({ action: 'none' }));
+        return;
+      }
     }
 
     const id = chat._id.toString();
