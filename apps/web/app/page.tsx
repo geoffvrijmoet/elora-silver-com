@@ -181,7 +181,10 @@ export default function Home() {
                     <ul className="list-disc list-inside space-y-1 ml-2">
                       <li>Aetna</li>
                       <li>Blue Cross Blue Shield of Massachusetts</li>
+                      <li>Oscar</li>
+                      <li>Oxford</li>
                       <li>Quest Behavioral Health</li>
+                      <li>United Healthcare</li>
                     </ul>
                   </div>
                   <div>
