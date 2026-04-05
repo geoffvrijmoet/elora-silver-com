@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-        'muted-green-light': '#E6EAE6',
+        'muted-green-light': '#F5F0E8',
         'dark-green-text': '#2A4B2A',
 			background: 'var(--background)',
 			foreground: 'var(--foreground)'

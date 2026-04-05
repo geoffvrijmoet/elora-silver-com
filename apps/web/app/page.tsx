@@ -313,6 +313,95 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Botanical Leaf Decoration */}
+      <div className="fixed bottom-0 left-0 w-full pointer-events-none" aria-hidden="true">
+        <svg
+          viewBox="0 0 1440 180"
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="auto"
+          preserveAspectRatio="xMidYMax meet"
+          role="presentation"
+        >
+          <g stroke="#2A4B2A" fill="none" strokeLinecap="round" strokeLinejoin="round">
+
+            {/* Group 1: Small cluster, far left */}
+            <path d="M 55 180 C 57 158 55 135 52 108" strokeWidth="1.4"/>
+            <path d="M 53 148 C 68 138 88 132 96 118 C 104 104 96 93 83 98 C 68 104 52 126 53 148" strokeWidth="1.2"/>
+            <path d="M 53 148 C 72 128 84 112 96 118" strokeWidth="0.8"/>
+            <path d="M 51 122 C 36 110 18 102 13 86 C 8 70 19 60 32 68 C 46 77 51 103 51 122" strokeWidth="1.2"/>
+            <path d="M 51 122 C 32 100 22 78 32 68" strokeWidth="0.8"/>
+            <path d="M 52 108 C 58 90 64 72 58 56 C 53 42 42 40 37 51 C 32 64 40 88 52 108" strokeWidth="1.2"/>
+            <path d="M 52 108 C 54 86 50 64 58 56" strokeWidth="0.8"/>
+
+            {/* Group 2: Large broad leaf with veins, center-left */}
+            <path d="M 248 180 C 246 160 242 140 236 118" strokeWidth="1.5"/>
+            <path d="M 236 118 C 248 94 278 78 304 88 C 330 98 330 126 308 138 C 284 152 248 148 236 118" strokeWidth="1.3"/>
+            <path d="M 236 118 C 264 114 294 118 304 88" strokeWidth="1.0"/>
+            <path d="M 248 108 C 266 100 286 96 300 92" strokeWidth="0.7"/>
+            <path d="M 252 120 C 270 114 288 110 302 106" strokeWidth="0.7"/>
+            <path d="M 248 132 C 266 128 282 124 296 120" strokeWidth="0.7"/>
+
+            {/* Group 3: Tall stem with alternating leaves */}
+            <path d="M 428 180 C 430 152 432 120 430 88 C 428 64 424 44 420 28" strokeWidth="1.4"/>
+            <path d="M 429 145 C 444 134 464 128 470 114 C 476 100 468 89 455 94 C 440 100 428 124 429 145" strokeWidth="1.2"/>
+            <path d="M 429 145 C 448 124 460 106 470 114" strokeWidth="0.8"/>
+            <path d="M 429 112 C 412 100 392 92 386 76 C 380 60 392 50 406 58 C 420 66 430 92 429 112" strokeWidth="1.2"/>
+            <path d="M 429 112 C 408 92 394 70 406 58" strokeWidth="0.8"/>
+            <path d="M 428 78 C 442 64 460 54 464 38 C 468 24 458 16 447 24 C 434 34 426 58 428 78" strokeWidth="1.2"/>
+            <path d="M 428 78 C 446 60 454 38 464 38" strokeWidth="0.8"/>
+
+            {/* Group 4: Tall grass blades with seed head, center */}
+            <path d="M 580 180 C 578 154 574 126 570 96 C 567 74 562 56 560 38" strokeWidth="1.1"/>
+            <path d="M 594 180 C 592 154 590 124 590 94 C 590 72 592 52 592 32" strokeWidth="1.1"/>
+            <path d="M 608 180 C 608 154 610 126 614 98 C 618 76 624 58 626 40" strokeWidth="1.1"/>
+            <path d="M 622 180 C 624 156 628 130 634 104 C 640 80 646 62 650 46" strokeWidth="1.1"/>
+            <path d="M 560 38 C 558 26 554 16 550 8" strokeWidth="0.9"/>
+            <path d="M 554 24 C 546 18 542 10 540 4" strokeWidth="0.7"/>
+            <path d="M 554 24 C 562 18 566 10 564 4" strokeWidth="0.7"/>
+
+            {/* Group 5: Two overlapping leaves, center-right */}
+            <path d="M 800 180 C 798 158 796 134 794 108" strokeWidth="1.5"/>
+            <path d="M 794 108 C 778 86 760 70 762 50 C 764 30 784 26 796 44 C 808 62 804 90 794 108" strokeWidth="1.3"/>
+            <path d="M 794 108 C 792 82 794 58 796 44" strokeWidth="0.9"/>
+            <path d="M 786 96 C 778 78 774 62 772 48" strokeWidth="0.7"/>
+            <path d="M 796 106 C 814 84 836 70 844 50 C 852 32 844 20 830 28 C 814 38 796 74 796 106" strokeWidth="1.3"/>
+            <path d="M 796 106 C 820 80 832 54 844 50" strokeWidth="0.9"/>
+            <path d="M 808 92 C 820 74 830 58 838 46" strokeWidth="0.7"/>
+            <path d="M 798 150 C 814 140 832 136 838 122 C 844 108 834 98 820 104 C 804 112 796 134 798 150" strokeWidth="1.1"/>
+            <path d="M 798 150 C 818 130 830 114 838 122" strokeWidth="0.7"/>
+
+            {/* Group 6: Round-leafed sprig (eucalyptus style), right */}
+            <path d="M 1050 180 C 1048 158 1044 134 1038 108" strokeWidth="1.4"/>
+            <path d="M 1042 148 C 1056 138 1070 130 1076 118" strokeWidth="1.1"/>
+            <ellipse cx="1082" cy="112" rx="14" ry="9" transform="rotate(-25 1082 112)" strokeWidth="1.1"/>
+            <path d="M 1040 124 C 1054 112 1068 106 1074 92" strokeWidth="1.1"/>
+            <ellipse cx="1080" cy="86" rx="13" ry="8" transform="rotate(-30 1080 86)" strokeWidth="1.1"/>
+            <path d="M 1041 136 C 1026 126 1016 118 1010 106" strokeWidth="1.1"/>
+            <ellipse cx="1004" cy="100" rx="14" ry="9" transform="rotate(20 1004 100)" strokeWidth="1.1"/>
+            <path d="M 1038 108 C 1032 94 1024 80 1020 66" strokeWidth="1.1"/>
+            <ellipse cx="1016" cy="60" rx="12" ry="8" transform="rotate(-5 1016 60)" strokeWidth="1.1"/>
+
+            {/* Group 7: Large leaf cluster, far right */}
+            <path d="M 1318 180 C 1316 158 1312 134 1306 108" strokeWidth="1.5"/>
+            <path d="M 1306 108 C 1322 84 1350 70 1372 82 C 1394 94 1392 120 1370 132 C 1344 146 1308 142 1306 108" strokeWidth="1.3"/>
+            <path d="M 1306 108 C 1336 104 1364 108 1372 82" strokeWidth="1.0"/>
+            <path d="M 1318 98 C 1338 90 1356 86 1368 84" strokeWidth="0.7"/>
+            <path d="M 1322 110 C 1340 104 1358 100 1370 96" strokeWidth="0.7"/>
+            <path d="M 1318 122 C 1336 118 1352 114 1364 110" strokeWidth="0.7"/>
+            <path d="M 1303 116 C 1286 94 1264 78 1260 58 C 1256 40 1268 32 1280 42 C 1292 52 1302 84 1303 116" strokeWidth="1.3"/>
+            <path d="M 1303 116 C 1286 88 1274 58 1280 42" strokeWidth="0.9"/>
+            <path d="M 1292 106 C 1282 84 1274 62 1272 48" strokeWidth="0.7"/>
+
+            {/* Accent leaf, far right edge */}
+            <path d="M 1426 180 C 1424 158 1420 132 1414 106" strokeWidth="1.3"/>
+            <path d="M 1414 106 C 1422 88 1432 74 1436 56 C 1440 40 1432 30 1422 38 C 1410 48 1408 78 1414 106" strokeWidth="1.2"/>
+            <path d="M 1414 106 C 1428 84 1434 60 1436 56" strokeWidth="0.8"/>
+
+          </g>
+        </svg>
+      </div>
+
       {/* Secret Smiley Button */}
       <div className="fixed bottom-4 right-4">
         <Link
