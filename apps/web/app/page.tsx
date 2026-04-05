@@ -325,78 +325,116 @@ export default function Home() {
         >
           <g stroke="#2A4B2A" fill="none" strokeLinecap="round" strokeLinejoin="round">
 
-            {/* Group 1: Small cluster, far left */}
-            <path d="M 55 180 C 57 158 55 135 52 108" strokeWidth="1.4"/>
-            <path d="M 53 148 C 68 138 88 132 96 118 C 104 104 96 93 83 98 C 68 104 52 126 53 148" strokeWidth="1.2"/>
-            <path d="M 53 148 C 72 128 84 112 96 118" strokeWidth="0.8"/>
-            <path d="M 51 122 C 36 110 18 102 13 86 C 8 70 19 60 32 68 C 46 77 51 103 51 122" strokeWidth="1.2"/>
-            <path d="M 51 122 C 32 100 22 78 32 68" strokeWidth="0.8"/>
-            <path d="M 52 108 C 58 90 64 72 58 56 C 53 42 42 40 37 51 C 32 64 40 88 52 108" strokeWidth="1.2"/>
-            <path d="M 52 108 C 54 86 50 64 58 56" strokeWidth="0.8"/>
+            {/* Group 1: Pinnate fern frond, far left */}
+            {/* Rachis */}
+            <path d="M 57 180 C 56 156 54 130 52 104 C 51 84 50 64 49 44" strokeWidth="1.4"/>
+            {/* Right pinnae - oval leaflets curving off rachis */}
+            <path d="M 53 155 C 63 148 76 140 82 129 C 87 119 83 111 74 115 C 64 119 53 137 53 155" strokeWidth="1.1"/>
+            <path d="M 52 126 C 63 117 77 107 83 94 C 88 82 83 74 74 78 C 64 83 52 106 52 126" strokeWidth="1.1"/>
+            <path d="M 51 97 C 61 87 73 75 78 62 C 82 50 77 43 68 47 C 58 52 50 75 51 97" strokeWidth="1.1"/>
+            {/* Left pinnae - alternating offset */}
+            <path d="M 53 142 C 43 133 31 123 25 110 C 19 98 23 90 32 95 C 41 100 52 121 53 142" strokeWidth="1.1"/>
+            <path d="M 52 113 C 41 102 28 91 22 78 C 16 65 20 58 29 63 C 39 68 52 93 52 113" strokeWidth="1.1"/>
+            <path d="M 50 83 C 39 72 28 59 23 47 C 19 36 23 30 32 35 C 41 40 50 64 50 83" strokeWidth="1.1"/>
 
-            {/* Group 2: Large broad leaf with veins, center-left */}
-            <path d="M 248 180 C 246 160 242 140 236 118" strokeWidth="1.5"/>
-            <path d="M 236 118 C 248 94 278 78 304 88 C 330 98 330 126 308 138 C 284 152 248 148 236 118" strokeWidth="1.3"/>
-            <path d="M 236 118 C 264 114 294 118 304 88" strokeWidth="1.0"/>
-            <path d="M 248 108 C 266 100 286 96 300 92" strokeWidth="0.7"/>
-            <path d="M 252 120 C 270 114 288 110 302 106" strokeWidth="0.7"/>
-            <path d="M 248 132 C 266 128 282 124 296 120" strokeWidth="0.7"/>
+            {/* Group 2: Monstera deliciosa leaf, center-left */}
+            {/* Petiole */}
+            <path d="M 252 180 C 251 166 249 150 248 136" strokeWidth="1.4"/>
+            {/* Leaf outline with characteristic deep lobes */}
+            <path d="M 248 136 C 262 132 274 122 280 110 C 284 100 281 91 274 92 C 267 93 262 103 262 112 C 261 100 260 86 258 78 C 264 67 268 54 268 45 C 268 37 263 32 256 36 C 250 40 249 52 250 62 C 251 52 252 40 251 32 C 250 25 247 22 244 26 C 242 30 241 42 242 52 C 243 60 246 67 249 72 C 242 81 234 92 231 102 C 229 113 234 121 241 118 C 248 115 251 104 251 94 C 250 106 246 118 240 126 C 234 134 236 142 245 141 C 248 140 248 136 248 136 Z" strokeWidth="1.2"/>
+            {/* Midrib */}
+            <path d="M 248 136 C 251 108 254 80 256 52 C 258 38 257 28 251 24" strokeWidth="1.0"/>
+            {/* Fenestrations (characteristic oval holes near midrib) */}
+            <ellipse cx="254" cy="66" rx="4" ry="6" transform="rotate(-20 254 66)" strokeWidth="0.9"/>
+            <ellipse cx="253" cy="92" rx="4" ry="5" transform="rotate(-15 253 92)" strokeWidth="0.9"/>
+            {/* Lateral veins */}
+            <path d="M 252 116 C 260 108 268 101 274 93" strokeWidth="0.7"/>
+            <path d="M 252 98 C 258 90 264 82 266 74" strokeWidth="0.7"/>
+            <path d="M 252 116 C 244 107 238 100 234 92" strokeWidth="0.7"/>
+            <path d="M 252 98 C 244 89 240 81 238 73" strokeWidth="0.7"/>
 
-            {/* Group 3: Tall stem with alternating leaves */}
-            <path d="M 428 180 C 430 152 432 120 430 88 C 428 64 424 44 420 28" strokeWidth="1.4"/>
-            <path d="M 429 145 C 444 134 464 128 470 114 C 476 100 468 89 455 94 C 440 100 428 124 429 145" strokeWidth="1.2"/>
-            <path d="M 429 145 C 448 124 460 106 470 114" strokeWidth="0.8"/>
-            <path d="M 429 112 C 412 100 392 92 386 76 C 380 60 392 50 406 58 C 420 66 430 92 429 112" strokeWidth="1.2"/>
-            <path d="M 429 112 C 408 92 394 70 406 58" strokeWidth="0.8"/>
-            <path d="M 428 78 C 442 64 460 54 464 38 C 468 24 458 16 447 24 C 434 34 426 58 428 78" strokeWidth="1.2"/>
-            <path d="M 428 78 C 446 60 454 38 464 38" strokeWidth="0.8"/>
+            {/* Group 3: Tall pinnate fern frond, center-left */}
+            {/* Rachis */}
+            <path d="M 430 180 C 429 153 426 124 422 94 C 418 70 414 48 410 27" strokeWidth="1.4"/>
+            {/* Right pinnae */}
+            <path d="M 426 156 C 437 148 452 138 459 126 C 465 115 460 106 451 110 C 441 115 426 136 426 156" strokeWidth="1.1"/>
+            <path d="M 424 127 C 436 117 451 106 458 92 C 464 79 459 70 449 74 C 439 79 423 103 424 127" strokeWidth="1.1"/>
+            <path d="M 421 98 C 432 87 445 74 450 60 C 454 47 449 39 440 43 C 430 48 420 74 421 98" strokeWidth="1.1"/>
+            <path d="M 418 69 C 426 57 435 46 437 33 C 439 22 434 17 427 21 C 419 26 417 51 418 69" strokeWidth="1.1"/>
+            {/* Left pinnae - alternating offset */}
+            <path d="M 426 143 C 414 133 399 122 392 109 C 385 96 389 87 399 92 C 409 97 425 121 426 143" strokeWidth="1.1"/>
+            <path d="M 423 114 C 410 102 394 89 386 75 C 379 62 383 53 394 58 C 405 64 423 92 423 114" strokeWidth="1.1"/>
+            <path d="M 420 84 C 408 71 394 57 387 43 C 381 31 386 24 396 29 C 407 35 420 64 420 84" strokeWidth="1.1"/>
+            <path d="M 416 54 C 405 42 395 30 392 18 C 389 8 393 3 402 8 C 410 14 416 40 416 54" strokeWidth="1.0"/>
 
-            {/* Group 4: Tall grass blades with seed head, center */}
-            <path d="M 580 180 C 578 154 574 126 570 96 C 567 74 562 56 560 38" strokeWidth="1.1"/>
-            <path d="M 594 180 C 592 154 590 124 590 94 C 590 72 592 52 592 32" strokeWidth="1.1"/>
-            <path d="M 608 180 C 608 154 610 126 614 98 C 618 76 624 58 626 40" strokeWidth="1.1"/>
-            <path d="M 622 180 C 624 156 628 130 634 104 C 640 80 646 62 650 46" strokeWidth="1.1"/>
-            <path d="M 560 38 C 558 26 554 16 550 8" strokeWidth="0.9"/>
-            <path d="M 554 24 C 546 18 542 10 540 4" strokeWidth="0.7"/>
-            <path d="M 554 24 C 562 18 566 10 564 4" strokeWidth="0.7"/>
+            {/* Group 4: Tall grass blades with seed heads, center */}
+            <path d="M 578 180 C 577 154 575 126 572 96 C 570 74 567 56 565 38" strokeWidth="1.1"/>
+            <path d="M 591 180 C 590 154 589 126 590 96 C 591 74 593 54 594 34" strokeWidth="1.1"/>
+            <path d="M 604 180 C 604 154 606 126 610 98 C 614 76 619 58 622 40" strokeWidth="1.1"/>
+            <path d="M 617 180 C 619 156 623 130 629 104 C 635 80 641 62 645 46" strokeWidth="1.1"/>
+            {/* Seed heads */}
+            <path d="M 565 38 C 563 28 560 17 557 8" strokeWidth="0.9"/>
+            <path d="M 557 8 C 552 4 548 2 546 4" strokeWidth="0.7"/>
+            <path d="M 557 8 C 562 4 566 2 568 4" strokeWidth="0.7"/>
+            <path d="M 594 34 C 592 24 592 14 594 4" strokeWidth="0.9"/>
+            <path d="M 594 4 C 590 0 587 0 586 2" strokeWidth="0.7"/>
+            <path d="M 594 4 C 598 0 601 0 602 2" strokeWidth="0.7"/>
 
-            {/* Group 5: Two overlapping leaves, center-right */}
-            <path d="M 800 180 C 798 158 796 134 794 108" strokeWidth="1.5"/>
-            <path d="M 794 108 C 778 86 760 70 762 50 C 764 30 784 26 796 44 C 808 62 804 90 794 108" strokeWidth="1.3"/>
-            <path d="M 794 108 C 792 82 794 58 796 44" strokeWidth="0.9"/>
-            <path d="M 786 96 C 778 78 774 62 772 48" strokeWidth="0.7"/>
-            <path d="M 796 106 C 814 84 836 70 844 50 C 852 32 844 20 830 28 C 814 38 796 74 796 106" strokeWidth="1.3"/>
-            <path d="M 796 106 C 820 80 832 54 844 50" strokeWidth="0.9"/>
-            <path d="M 808 92 C 820 74 830 58 838 46" strokeWidth="0.7"/>
-            <path d="M 798 150 C 814 140 832 136 838 122 C 844 108 834 98 820 104 C 804 112 796 134 798 150" strokeWidth="1.1"/>
-            <path d="M 798 150 C 818 130 830 114 838 122" strokeWidth="0.7"/>
+            {/* Group 5: Heart-leaf philodendron, center-right */}
+            {/* Petiole */}
+            <path d="M 804 180 C 803 162 801 142 800 122" strokeWidth="1.5"/>
+            {/* Leaf outline - broad heart-shaped with pointed tip */}
+            <path d="M 800 122 C 813 118 828 108 838 94 C 846 80 844 64 834 52 C 824 42 812 38 810 36 C 812 28 812 20 810 14 C 808 20 808 28 806 36 C 798 36 786 40 778 50 C 768 62 766 78 774 92 C 782 108 796 118 800 122 Z" strokeWidth="1.3"/>
+            {/* Midrib */}
+            <path d="M 800 122 C 804 96 807 68 810 40 C 811 28 810 18 810 14" strokeWidth="1.0"/>
+            {/* Lateral veins - right */}
+            <path d="M 803 104 C 813 98 822 90 830 80" strokeWidth="0.7"/>
+            <path d="M 805 88 C 815 82 822 72 826 62" strokeWidth="0.7"/>
+            <path d="M 807 72 C 815 66 820 56 822 48" strokeWidth="0.7"/>
+            {/* Lateral veins - left */}
+            <path d="M 803 104 C 794 98 786 90 778 80" strokeWidth="0.7"/>
+            <path d="M 805 88 C 797 82 790 72 786 62" strokeWidth="0.7"/>
+            <path d="M 807 72 C 800 66 795 56 793 48" strokeWidth="0.7"/>
 
-            {/* Group 6: Round-leafed sprig (eucalyptus style), right */}
-            <path d="M 1050 180 C 1048 158 1044 134 1038 108" strokeWidth="1.4"/>
-            <path d="M 1042 148 C 1056 138 1070 130 1076 118" strokeWidth="1.1"/>
-            <ellipse cx="1082" cy="112" rx="14" ry="9" transform="rotate(-25 1082 112)" strokeWidth="1.1"/>
-            <path d="M 1040 124 C 1054 112 1068 106 1074 92" strokeWidth="1.1"/>
-            <ellipse cx="1080" cy="86" rx="13" ry="8" transform="rotate(-30 1080 86)" strokeWidth="1.1"/>
-            <path d="M 1041 136 C 1026 126 1016 118 1010 106" strokeWidth="1.1"/>
-            <ellipse cx="1004" cy="100" rx="14" ry="9" transform="rotate(20 1004 100)" strokeWidth="1.1"/>
-            <path d="M 1038 108 C 1032 94 1024 80 1020 66" strokeWidth="1.1"/>
-            <ellipse cx="1016" cy="60" rx="12" ry="8" transform="rotate(-5 1016 60)" strokeWidth="1.1"/>
+            {/* Group 6: Eucalyptus branch with oval leaves, right */}
+            <path d="M 1052 180 C 1050 156 1046 130 1040 104" strokeWidth="1.4"/>
+            {/* Right-side stems and oval leaves */}
+            <path d="M 1044 150 C 1053 142 1064 135 1072 124" strokeWidth="1.1"/>
+            <ellipse cx="1078" cy="118" rx="13" ry="8" transform="rotate(-30 1078 118)" strokeWidth="1.1"/>
+            <path d="M 1043 128 C 1052 118 1064 110 1072 98" strokeWidth="1.1"/>
+            <ellipse cx="1078" cy="92" rx="12" ry="8" transform="rotate(-25 1078 92)" strokeWidth="1.1"/>
+            <path d="M 1041 108 C 1050 96 1060 86 1066 74" strokeWidth="1.1"/>
+            <ellipse cx="1072" cy="68" rx="12" ry="7" transform="rotate(-20 1072 68)" strokeWidth="1.1"/>
+            {/* Left-side stems and oval leaves */}
+            <path d="M 1042 138 C 1031 128 1020 120 1013 108" strokeWidth="1.1"/>
+            <ellipse cx="1007" cy="102" rx="13" ry="8" transform="rotate(20 1007 102)" strokeWidth="1.1"/>
+            <path d="M 1040 116 C 1030 104 1020 92 1015 78" strokeWidth="1.1"/>
+            <ellipse cx="1011" cy="72" rx="12" ry="7" transform="rotate(15 1011 72)" strokeWidth="1.1"/>
+            <path d="M 1038 94 C 1030 80 1024 66 1022 52" strokeWidth="1.1"/>
+            <ellipse cx="1018" cy="46" rx="11" ry="7" transform="rotate(-5 1018 46)" strokeWidth="1.1"/>
 
-            {/* Group 7: Large leaf cluster, far right */}
-            <path d="M 1318 180 C 1316 158 1312 134 1306 108" strokeWidth="1.5"/>
-            <path d="M 1306 108 C 1322 84 1350 70 1372 82 C 1394 94 1392 120 1370 132 C 1344 146 1308 142 1306 108" strokeWidth="1.3"/>
-            <path d="M 1306 108 C 1336 104 1364 108 1372 82" strokeWidth="1.0"/>
-            <path d="M 1318 98 C 1338 90 1356 86 1368 84" strokeWidth="0.7"/>
-            <path d="M 1322 110 C 1340 104 1358 100 1370 96" strokeWidth="0.7"/>
-            <path d="M 1318 122 C 1336 118 1352 114 1364 110" strokeWidth="0.7"/>
-            <path d="M 1303 116 C 1286 94 1264 78 1260 58 C 1256 40 1268 32 1280 42 C 1292 52 1302 84 1303 116" strokeWidth="1.3"/>
-            <path d="M 1303 116 C 1286 88 1274 58 1280 42" strokeWidth="0.9"/>
-            <path d="M 1292 106 C 1282 84 1274 62 1272 48" strokeWidth="0.7"/>
+            {/* Group 7: Monstera deliciosa leaf, far right (mirrored) */}
+            {/* Petiole */}
+            <path d="M 1315 180 C 1314 166 1312 150 1311 136" strokeWidth="1.4"/>
+            {/* Leaf outline - mirrored lobes */}
+            <path d="M 1311 136 C 1296 132 1284 122 1278 110 C 1274 100 1277 91 1284 92 C 1291 93 1296 103 1296 112 C 1297 100 1298 86 1300 78 C 1294 67 1290 54 1290 45 C 1290 37 1295 32 1302 36 C 1308 40 1309 52 1308 62 C 1307 52 1306 40 1307 32 C 1308 25 1311 22 1314 26 C 1316 30 1317 42 1316 52 C 1315 60 1312 67 1309 72 C 1316 81 1324 92 1327 102 C 1329 113 1324 121 1317 118 C 1310 115 1307 104 1307 94 C 1308 106 1312 118 1318 126 C 1324 134 1322 142 1313 141 C 1310 140 1311 136 1311 136 Z" strokeWidth="1.2"/>
+            {/* Midrib */}
+            <path d="M 1311 136 C 1308 108 1304 80 1302 52 C 1300 38 1301 28 1307 24" strokeWidth="1.0"/>
+            {/* Fenestrations */}
+            <ellipse cx="1305" cy="66" rx="4" ry="6" transform="rotate(20 1305 66)" strokeWidth="0.9"/>
+            <ellipse cx="1306" cy="92" rx="4" ry="5" transform="rotate(15 1306 92)" strokeWidth="0.9"/>
+            {/* Lateral veins */}
+            <path d="M 1308 116 C 1300 108 1293 101 1288 93" strokeWidth="0.7"/>
+            <path d="M 1308 98 C 1302 90 1296 82 1294 74" strokeWidth="0.7"/>
+            <path d="M 1308 116 C 1316 107 1320 100 1322 92" strokeWidth="0.7"/>
+            <path d="M 1308 98 C 1314 89 1318 81 1320 73" strokeWidth="0.7"/>
 
-            {/* Accent leaf, far right edge */}
-            <path d="M 1426 180 C 1424 158 1420 132 1414 106" strokeWidth="1.3"/>
-            <path d="M 1414 106 C 1422 88 1432 74 1436 56 C 1440 40 1432 30 1422 38 C 1410 48 1408 78 1414 106" strokeWidth="1.2"/>
-            <path d="M 1414 106 C 1428 84 1434 60 1436 56" strokeWidth="0.8"/>
+            {/* Accent: Small fern frond, far right edge */}
+            <path d="M 1426 180 C 1425 164 1423 146 1421 126" strokeWidth="1.3"/>
+            <path d="M 1421 155 C 1430 148 1439 140 1440 130 C 1440 120 1435 113 1427 117 C 1421 121 1421 138 1421 155" strokeWidth="1.1"/>
+            <path d="M 1420 130 C 1429 121 1438 112 1439 100 C 1440 89 1434 82 1427 86 C 1421 90 1420 110 1420 130" strokeWidth="1.1"/>
+            <path d="M 1421 155 C 1413 147 1405 138 1405 128 C 1405 119 1411 114 1418 118" strokeWidth="1.1"/>
+            <path d="M 1420 130 C 1411 120 1403 111 1402 99 C 1401 88 1407 82 1415 86" strokeWidth="1.1"/>
 
           </g>
         </svg>
